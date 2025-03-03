@@ -18,20 +18,15 @@ public class FileManager {
     }
 
 
-    public void write(String fileName, String text) {
+    public void write(String fileName, String text) throws PermissionDeniedException {
         try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileName))) {
             var filePath = new File(fileName);
             if (!filePath.canWrite()) throw new PermissionDeniedException("Запись");
 
             char[] chars = text.toCharArray();
             outputStreamWriter.write(chars, 0, chars.length);
-            console.println("Коллекция была успешно сохранена");
-        } catch (PermissionDeniedException e) {
-            console.println(e.getMessage());
         } catch (IOException e) {
             console.println("Ошибка при записи файла");
-
-
         }
     }
 

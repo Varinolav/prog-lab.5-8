@@ -33,7 +33,7 @@ public class CollectionManager {
     }
 
     public String getCollectionInfo() {
-        return "Тип данных: " + collection.getClass().getName() + "\n" +
+        return "Тип данных: " + collection.getClass().getSimpleName() + "\n" +
                 "Дата инициализации: " + creationDate + "\n" +
                 "Количество элементов: " + collection.size();
     }
@@ -53,6 +53,7 @@ public class CollectionManager {
         sb.append("}");
         return sb.toString();
     }
+
     @Override
     public String toString() {
         if (collection.isEmpty()) return "Коллекция пуста!";
@@ -62,6 +63,14 @@ public class CollectionManager {
     public void addElementToCollection(Integer id, Movie movie) {
         collection.put(id, movie);
 
+    }
+
+    public void removeElementFromCollection(Integer id) {
+        collection.remove(id);
+    }
+
+    public void clearCollection() {
+        collection.clear();
     }
 
     public Movie getElementById(Integer id) {

@@ -49,8 +49,10 @@ public class MovieBuilder implements Builder<Movie> {
 
     }
 
-    public MovieBuilder buildTotalBoxOffice(int totalBoxOffice) {
-        if (totalBoxOffice <= 0) throw new IllegalArgumentException("Количетсво сборов должно быть больше 0");
+    public MovieBuilder buildTotalBoxOffice(Integer totalBoxOffice) {
+        if (totalBoxOffice == null) throw new IllegalArgumentException("Нужно обязательно ввести значение поля");
+        if (totalBoxOffice <= 0)
+            throw new IllegalArgumentException("Количетсво сборов должно быть больше 0");
 
         this.totalBoxOffice = totalBoxOffice;
         return this;
