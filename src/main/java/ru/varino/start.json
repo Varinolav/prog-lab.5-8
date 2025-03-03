@@ -1,0 +1,16 @@
+{
+  "1": {
+    "id": 1,
+    "name": "Bibi",
+    "coordinates": {
+      "x": 1.0,
+      "y": 2.0
+    },
+    "creationDate": "2025-02-28",
+    "oscarsCount": null,
+    "totalBoxOffice": 12,
+    "tagline": null,
+    "genre": "HORROR",
+    "director": null
+  }
+}
