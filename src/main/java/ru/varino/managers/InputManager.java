@@ -39,7 +39,6 @@ public class InputManager {
         try {
             String[] userCommand;
             ResponseEntity response;
-
             do {
                 console.printf("~ ");
 
@@ -49,10 +48,10 @@ public class InputManager {
                 RequestEntity request = RequestEntity.create(command, params);
                 response = runCommand(request);
                 console.printResponse(response);
-            } while (response.getExitCode() != 500);
+            } while (!response.getBody().equals("Работа программы прекращена"));
         } catch (NoSuchElementException exception) {
             console.println("");
-            console.printerr("Работа программы прекращена!");
+            console.printerr("Работа программы прекращена");
         }
 
     }
@@ -61,9 +60,6 @@ public class InputManager {
         String commandReq = req.getCommand();
         if (commandReq.isEmpty()) return ResponseEntity.badRequest().body("Введено 0 аргументов");
         Command command = commandManager.getCommand(commandReq);
-        if (commandReq.equals("exit")) {
-            return ResponseEntity.exit().body("EXIT");
-        }
         if (command == null) {
             return ResponseEntity.badRequest().body("Команда '" + commandReq + "' не найдена, используйте help");
         }

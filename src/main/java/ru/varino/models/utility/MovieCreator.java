@@ -74,7 +74,7 @@ public class MovieCreator {
 
         movieBuilder.buildCreationDate(LocalDate.now());
         input("Введите число оскаров: ", console, movieBuilder::buildOscarsCount, parseInt, scanner);
-        input("Введите объём кассовых сборов: ", console, movieBuilder::buildOscarsCount, parseInt, scanner);
+        input("Введите объём кассовых сборов: ", console, movieBuilder::buildTotalBoxOffice, parseInt, scanner);
         input("Введите слоган: ", console, movieBuilder::buildTagline, String::valueOf, scanner);
         input("Введите жанр: (Возможные варианты - %s) ".formatted(MovieGenre.getNames()), console, movieBuilder::buildGenre, GenreValueOf, scanner);
 

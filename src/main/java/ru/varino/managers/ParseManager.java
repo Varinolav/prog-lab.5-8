@@ -22,7 +22,6 @@ public class ParseManager {
     private final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .serializeNulls()
-            .setDateFormat("dd/MM/yyyy")
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
