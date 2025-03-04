@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Initialization...");
 
-        String fileName = "D:\\JavaProjects\\lab5-8\\src\\main\\java\\ru\\varino\\start.json";
+        String fileName = "D:\\Java projects\\lab5\\src\\main\\java\\ru\\varino\\start.json";
 
         Console console = new StandartConsole();
 
@@ -49,7 +49,9 @@ public class Main {
                 .add("save", new Save(fileName, parseManager, fileManager, collectionManager))
                 .add("exit", new Exit())
                 .add("replace_if_greater", new ReplaceIf("greater", collectionManager, scanner, console))
-                .add("replace_if_lower", new ReplaceIf("lower", collectionManager, scanner, console));
+                .add("replace_if_lower", new ReplaceIf("lower", collectionManager, scanner, console))
+                .add("remove_lower_key", new RemoveLowerKey(collectionManager))
+                .add("average_of_total_box_office", new AverageTotalBoxOffice(collectionManager));
         InputManager inputManager = InputManager.getInstance(console, commandManager);
 
         inputManager.interactiveRun();

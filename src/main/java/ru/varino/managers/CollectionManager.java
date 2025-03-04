@@ -2,9 +2,7 @@ package ru.varino.managers;
 
 import ru.varino.models.Movie;
 
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class CollectionManager {
     private static CollectionManager instance;
@@ -63,6 +61,13 @@ public class CollectionManager {
     public void addElementToCollection(Integer id, Movie movie) {
         collection.put(id, movie);
 
+    }
+    public Collection<Movie> getElements() {
+        return collection.values();
+    }
+
+    public Set<Integer> getElementsIds() {
+        return collection.keySet();
     }
 
     public void removeElementFromCollection(Integer id) {
