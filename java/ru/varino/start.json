@@ -1,0 +1,35 @@
+{
+  "2": {
+    "id": 1,
+    "name": "sa",
+    "coordinates": {
+      "x": 21.0,
+      "y": 12.0
+    },
+    "creationDate": "2025-03-03",
+    "oscarsCount": null,
+    "totalBoxOffice": 0,
+    "tagline": null,
+    "genre": "HORROR",
+    "director": {
+      "name": "1",
+      "birthday": null,
+      "weight": 13,
+      "nationality": "SPAIN"
+    }
+  },
+  "1": {
+    "id": 1,
+    "name": "Bibi",
+    "coordinates": {
+      "x": 1.0,
+      "y": 2.0
+    },
+    "creationDate": "2025-02-28",
+    "oscarsCount": null,
+    "totalBoxOffice": 12,
+    "tagline": null,
+    "genre": "HORROR",
+    "director": null
+  }
+}
