@@ -17,11 +17,12 @@ public class AverageTotalBoxOffice extends Command {
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
         if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("Коллекция пуста");
         long sum = 0;
         for (Movie m : collectionManager.getElements()) {
             sum += m.getTotalBoxOffice();
         }
-        long res =  sum / collectionManager.getCollection().size();
+        long res = sum / collectionManager.getCollection().size();
         return ResponseEntity.ok().body("Среднее значение totalBoxOffice: %s".formatted(res));
     }
 }
