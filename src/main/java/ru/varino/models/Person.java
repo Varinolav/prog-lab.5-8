@@ -5,7 +5,7 @@ import ru.varino.models.utility.builders.PersonBuilder;
 
 import java.time.LocalDateTime;
 
-public final class Person {
+public final class Person implements Comparable<Person> {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDateTime birthday; //Поле может быть null
     private Long weight; //Поле может быть null, Значение поля должно быть больше 0
@@ -58,5 +58,12 @@ public final class Person {
                 ", weight=" + weight +
                 ", nationality=" + nationality +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Person p) {
+        int delta = name.length() - p.getName().length();
+        return Integer.compare(delta, 0);
+
     }
 }

@@ -51,7 +51,10 @@ public class Main {
                 .add("replace_if_greater", new ReplaceIf("greater", collectionManager, scanner, console))
                 .add("replace_if_lower", new ReplaceIf("lower", collectionManager, scanner, console))
                 .add("remove_lower_key", new RemoveLowerKey(collectionManager))
-                .add("average_of_total_box_office", new AverageTotalBoxOffice(collectionManager));
+                .add("average_of_total_box_office", new AverageTotalBoxOffice(collectionManager))
+                .add("min_by_director", new MinByDirector(collectionManager))
+                .add("count_less_than_genre", new CountLessGenre(collectionManager));
+
         InputManager inputManager = InputManager.getInstance(console, commandManager);
 
         inputManager.interactiveRun();
