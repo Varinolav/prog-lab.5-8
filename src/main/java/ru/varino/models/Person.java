@@ -2,10 +2,11 @@ package ru.varino.models;
 
 
 import ru.varino.models.utility.builders.PersonBuilder;
+import ru.varino.utility.Validatable;
 
 import java.time.LocalDateTime;
 
-public final class Person implements Comparable<Person> {
+public final class Person implements Comparable<Person>, Validatable {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDateTime birthday; //Поле может быть null
     private Long weight; //Поле может быть null, Значение поля должно быть больше 0
@@ -64,6 +65,15 @@ public final class Person implements Comparable<Person> {
     public int compareTo(Person p) {
         int delta = name.length() - p.getName().length();
         return Integer.compare(delta, 0);
+
+    }
+
+    @Override
+    public boolean validate() {
+        if (name == null || name.isBlank()) return false;
+        if (weight != null && weight <= 0) return false;
+        if (nationality == null) return false;
+        return true;
 
     }
 }

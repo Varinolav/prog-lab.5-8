@@ -2,8 +2,9 @@ package ru.varino.models;
 
 
 import ru.varino.models.utility.builders.CoordinatesBuilder;
+import ru.varino.utility.Validatable;
 
-public final class Coordinates {
+public final class Coordinates implements Validatable {
     private double x;
     private double y; //Максимальное значение поля: 522
 
@@ -32,5 +33,10 @@ public final class Coordinates {
     @Override
     public String toString() {
         return x + " ; " + y;
+    }
+
+    @Override
+    public boolean validate() {
+        return y <= 522;
     }
 }

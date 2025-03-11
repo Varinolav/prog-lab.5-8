@@ -2,11 +2,11 @@ package ru.varino.models;
 
 import ru.varino.models.utility.builders.MovieBuilder;
 import ru.varino.utility.Entity;
+import ru.varino.utility.Validatable;
 
 import java.time.LocalDate;
 
-public final class Movie extends Entity implements Comparable<Movie> {
-    private static Integer curId = 1;
+public final class Movie extends Entity implements Comparable<Movie>, Validatable {
 
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -19,7 +19,7 @@ public final class Movie extends Entity implements Comparable<Movie> {
     private Person director; //Поле может быть null
 
     public Movie(MovieBuilder builder) {
-        this.setId(curId++);
+        id = builder.getId();
         name = builder.getName();
         coordinates = builder.getCoordinates();
         creationDate = builder.getCreationDate();
@@ -136,5 +136,18 @@ public final class Movie extends Entity implements Comparable<Movie> {
                 ", genre=" + genre +
                 ", director=" + director +
                 '}';
+    }
+
+    @Override
+    public boolean validate() {
+        if (id == null || id <=0 ) return false;
+        if (name == null || name.isBlank()) return false;
+        if (coordinates == null || !coordinates.validate()) return false;
+        if (creationDate == null) return false;
+        if (oscarsCount != null && oscarsCount <= 0) return false;
+        if (totalBoxOffice <= 0) return false;
+        if (genre == null) return false;
+        if (director != null && !director.validate()) return false;
+        return true;
     }
 }

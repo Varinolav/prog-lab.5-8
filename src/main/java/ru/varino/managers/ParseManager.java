@@ -3,10 +3,12 @@ package ru.varino.managers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.varino.models.Movie;
+import ru.varino.models.utility.IdGenerator;
 import ru.varino.utility.io.Console;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.time.LocalDate;
 
@@ -37,6 +39,7 @@ public class ParseManager {
 
 
     public Hashtable<Integer, Movie> getHashTableFromJson(String json) {
+        IdGenerator idGen = IdGenerator.getInstance();
         try {
             Hashtable<Integer, Movie> movies = new Hashtable<Integer, Movie>();
             if (!json.isEmpty()) {
@@ -44,6 +47,14 @@ public class ParseManager {
                 }.getType();
                 movies = gson.fromJson(json, collectionType);
             }
+            ArrayList<Integer> IdList = new ArrayList<>();
+
+            for (Movie m : movies.values()) {
+                Integer movieId = m.getId();
+                if (IdList.contains(movieId) || !m.validate()) throw new IllegalArgumentException();
+                IdList.add(movieId);
+            }
+            idGen.setIdsFromCollection(movies);
             return movies;
         } catch (Exception e) {
             console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста");
