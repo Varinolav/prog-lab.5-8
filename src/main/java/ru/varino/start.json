@@ -1,20 +1,39 @@
 {
-  "1": {
-    "id": 1,
-    "name": "as",
+  "123": {
+    "id": 3,
+    "name": "asd",
     "coordinates": {
-      "x": 121.0,
-      "y": 5.0
+      "x": 3.0,
+      "y": 3.0
     },
-    "creationDate": "2025-03-05",
-    "oscarsCount": 1,
-    "totalBoxOffice": 912,
-    "tagline": "ôû",
-    "genre": "WESTERN",
+    "creationDate": "2025-03-12",
+    "oscarsCount": null,
+    "totalBoxOffice": 3,
+    "tagline": "3",
+    "genre": "HORROR",
     "director": {
-      "name": "bob",
+      "name": "3",
       "birthday": null,
-      "weight": 120,
+      "weight": null,
+      "nationality": "SPAIN"
+    }
+  },
+  "12": {
+    "id": 1,
+    "name": "sad",
+    "coordinates": {
+      "x": 1.0,
+      "y": 1.0
+    },
+    "creationDate": "2025-03-12",
+    "oscarsCount": null,
+    "totalBoxOffice": 1,
+    "tagline": null,
+    "genre": "HORROR",
+    "director": {
+      "name": "3",
+      "birthday": null,
+      "weight": 3,
       "nationality": "SPAIN"
     }
   }

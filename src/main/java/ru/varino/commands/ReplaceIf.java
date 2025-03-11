@@ -2,7 +2,7 @@ package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
 import ru.varino.models.Movie;
-import ru.varino.models.utility.MovieCreator;
+import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 import ru.varino.utility.io.Console;
@@ -32,7 +32,7 @@ public class ReplaceIf extends Command {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
                     .body("Ёлемента с таким id не существует в коллекции");
-            Movie movie = MovieCreator.create(console, scanner);
+            Movie movie = InteractiveMovieCreator.create(console, scanner);
             Boolean comparisonResult = null;
             if (type.equals("greater")) {
                 comparisonResult = movie.compareTo(collectionManager.getElementById(id)) > 0;

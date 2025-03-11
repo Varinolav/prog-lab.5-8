@@ -2,7 +2,7 @@ package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
 import ru.varino.models.Movie;
-import ru.varino.models.utility.MovieCreator;
+import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.io.Console;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
@@ -28,7 +28,7 @@ public class Insert extends Command {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) != null) return ResponseEntity.badRequest()
                     .body("Ёлемент с таким id уже существует в коллекции");
-            Movie movie = MovieCreator.create(console, scanner);
+            Movie movie = InteractiveMovieCreator.create(console, scanner);
             collectionManager.addElementToCollection(id, movie);
             return ResponseEntity.ok().body("Ёлемент добавлен в коллекцию");
 

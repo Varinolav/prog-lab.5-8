@@ -2,7 +2,7 @@ package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
 import ru.varino.models.Movie;
-import ru.varino.models.utility.MovieCreator;
+import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 import ru.varino.utility.io.Console;
@@ -29,7 +29,7 @@ public class Update extends Command {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
                     .body("Ёлемента с таким id не существует в коллекции");
-            Movie movie = MovieCreator.create(console, scanner);
+            Movie movie = InteractiveMovieCreator.create(console, scanner);
             collectionManager.addElementToCollection(id, movie);
             return ResponseEntity.ok().body("Ёлемент успешно перезаписан");
 

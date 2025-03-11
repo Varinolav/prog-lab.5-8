@@ -1,8 +1,6 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
-import ru.varino.models.Movie;
-import ru.varino.models.utility.MovieCreator;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
