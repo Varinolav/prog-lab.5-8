@@ -35,13 +35,16 @@ public class FileManager {
             var filePath = new File(fileName);
             if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
             if (!filePath.canWrite()) console.println("Внимание! Вы не сможете использовать команду save");
-
+            if (!filePath.exists()) throw new FileNotFoundException();
             StringBuilder out = new StringBuilder();
             String s;
             while ((s = bufferedReader.readLine()) != null) {
                 out.append(s);
             }
             return out.toString();
+        } catch (FileNotFoundException e) {
+            console.printerr("Файл не найден");
+            return "";
         } catch (PermissionDeniedException e) {
             console.printerr(e.getMessage() + ". Коллекция пуста");
             return "";

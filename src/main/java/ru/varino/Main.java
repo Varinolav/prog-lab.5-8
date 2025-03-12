@@ -3,6 +3,7 @@ package ru.varino;
 
 import ru.varino.commands.*;
 import ru.varino.managers.*;
+import ru.varino.utility.RecursionDequeHandler;
 import ru.varino.utility.io.Console;
 import ru.varino.utility.io.StandartConsole;
 
@@ -34,10 +35,13 @@ public class Main {
         collectionManager.setCollection(initCollection);
 
         Scanner scanner = new Scanner(System.in);
-        InputManager.setUsedScanner(scanner);
+        InputManager.setScanner(scanner);
 
 
         CommandManager commandManager = CommandManager.getInstance();
+        RecursionDequeHandler recursionDequeHandler = RecursionDequeHandler.getInstance();
+        InputManager inputManager = InputManager.getInstance(console, commandManager, recursionDequeHandler);
+
         commandManager
                 .add("show", new Show(collectionManager))
                 .add("help", new Help(commandManager))
@@ -53,9 +57,8 @@ public class Main {
                 .add("remove_lower_key", new RemoveLowerKey(collectionManager))
                 .add("average_of_total_box_office", new AverageTotalBoxOffice(collectionManager))
                 .add("min_by_director", new MinByDirector(collectionManager))
-                .add("count_less_than_genre", new CountLessGenre(collectionManager));
-
-        InputManager inputManager = InputManager.getInstance(console, commandManager);
+                .add("count_less_than_genre", new CountLessGenre(collectionManager))
+                .add("execute_script", new ExecuteScript(collectionManager, inputManager, console));
 
         inputManager.interactiveRun();
 

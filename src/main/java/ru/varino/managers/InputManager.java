@@ -1,10 +1,17 @@
 package ru.varino.managers;
 
 import ru.varino.commands.Command;
+import ru.varino.exceptions.EmptyFileException;
+import ru.varino.exceptions.PermissionDeniedException;
+import ru.varino.exceptions.RecursionException;
+import ru.varino.utility.RecursionConfiguration;
+import ru.varino.utility.RecursionDequeHandler;
 import ru.varino.utility.io.Console;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -12,27 +19,29 @@ public class InputManager {
     private static InputManager instance;
     private final Console console;
     private final CommandManager commandManager;
+    private final RecursionDequeHandler recursionDequeHandler;
 
 
-    private static Scanner usedScanner;
+    private static Scanner scanner;
 
 
-    private InputManager(Console console, CommandManager commandManager) {
+    private InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler) {
         this.console = console;
         this.commandManager = commandManager;
+        this.recursionDequeHandler = recursionDequeHandler;
     }
 
 
-    public static InputManager getInstance(Console console, CommandManager commandManager) {
-        return instance == null ? instance = new InputManager(console, commandManager) : instance;
+    public static InputManager getInstance(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler) {
+        return instance == null ? instance = new InputManager(console, commandManager, recursionDequeHandler) : instance;
     }
 
-    public static void setUsedScanner(Scanner scanner) {
-        usedScanner = scanner;
+    public static void setScanner(Scanner scanner) {
+        InputManager.scanner = scanner;
     }
 
-    public static Scanner getUsedScanner() {
-        return usedScanner;
+    public static Scanner getScanner() {
+        return scanner;
     }
 
     public void interactiveRun() {
@@ -42,7 +51,7 @@ public class InputManager {
             do {
                 console.printf("~ ");
 
-                userCommand = (usedScanner.nextLine().trim() + " ").split(" ", 2);
+                userCommand = (scanner.nextLine().trim() + " ").split(" ", 2);
                 String command = userCommand[0];
                 String params = userCommand[1].trim();
                 RequestEntity request = RequestEntity.create(command, params);
@@ -53,6 +62,57 @@ public class InputManager {
             console.println("");
             console.printerr("Работа программы прекращена");
         }
+
+    }
+
+    public void runScript(String fileName) {
+
+        try {
+            String[] fileCommand;
+            ResponseEntity response = ResponseEntity.ok();
+            File filePath = new File(fileName);
+            if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
+            if (!filePath.exists()) throw new FileNotFoundException();
+
+            Scanner fileScanner = new Scanner(filePath);
+            if (!fileScanner.hasNext()) throw new EmptyFileException(filePath.toString());
+
+            recursionDequeHandler.addFileNameLast(fileName);
+
+            while (fileScanner.hasNextLine() && !response.getBody().equals("Работа программы прекращена")) {
+                console.printf("%s-> ~ ".formatted(fileName));
+
+                String scannedCommand = fileScanner.nextLine();
+                fileCommand = (scannedCommand.trim() + " ").split(" ", 2);
+                String command = fileCommand[0];
+                String params = fileCommand[1].trim();
+                RequestEntity request = RequestEntity.create(command, params);
+
+                console.println(scannedCommand);
+
+
+                if (command.equals("execute_script")) {
+                    if (recursionDequeHandler.countFileName(params) > RecursionConfiguration.RECURSION_LIMIT) {
+                        throw new RecursionException("Максимальная глубина рекурсии достигнута");
+                    }
+                }
+
+                response = runCommand(request);
+                console.printResponse(response);
+            }
+            recursionDequeHandler.removeFileNameFirst();
+            console.printerr("Весь файл %s прочитан".formatted(fileName));
+
+        } catch (PermissionDeniedException e) {
+            return;
+        } catch (FileNotFoundException e) {
+            return;
+        } catch (EmptyFileException e) {
+            return;
+        } catch (RecursionException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
