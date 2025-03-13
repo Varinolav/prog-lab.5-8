@@ -7,6 +7,6 @@ public class EmptyFileException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Файл %s пустой".formatted(super.getMessage());
+        return "Р¤Р°Р№Р» %s РїСѓСЃС‚".formatted(super.getMessage());
     }
 }

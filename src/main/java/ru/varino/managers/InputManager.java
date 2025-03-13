@@ -57,10 +57,10 @@ public class InputManager {
                 RequestEntity request = RequestEntity.create(command, params);
                 response = runCommand(request);
                 console.printResponse(response);
-            } while (!response.getBody().equals("Работа программы прекращена"));
+            } while (!response.getBody().equals("Р Р°Р±РѕС‚Р° РїСЂРѕРіСЂР°РјРјС‹ Р·Р°РІРµСЂС€РµРЅР°"));
         } catch (NoSuchElementException exception) {
             console.println("");
-            console.printerr("Работа программы прекращена");
+            console.printerr("Р Р°Р±РѕС‚Р° РїСЂРѕРіСЂР°РјРјС‹ РїСЂРµРєСЂР°С‰РµРЅР°!");
         }
 
     }
@@ -71,7 +71,7 @@ public class InputManager {
             String[] fileCommand;
             ResponseEntity response = ResponseEntity.ok();
             File filePath = new File(fileName);
-            if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
+            if (!filePath.canRead()) throw new PermissionDeniedException("Р§С‚РµРЅРёРµ");
             if (!filePath.exists()) throw new FileNotFoundException();
 
             Scanner fileScanner = new Scanner(filePath);
@@ -79,7 +79,7 @@ public class InputManager {
 
             recursionDequeHandler.addFileNameLast(fileName);
 
-            while (fileScanner.hasNextLine() && !response.getBody().equals("Работа программы прекращена")) {
+            while (fileScanner.hasNextLine() && !response.getBody().equals("Р Р°Р±РѕС‚Р° РїСЂРѕРіСЂР°РјРјС‹ Р·Р°РІРµСЂС€РµРЅР°")) {
                 console.printf("%s-> ~ ".formatted(fileName));
 
                 String scannedCommand = fileScanner.nextLine();
@@ -92,8 +92,8 @@ public class InputManager {
 
 
                 if (command.equals("execute_script")) {
-                    if (recursionDequeHandler.countFileName(params) > RecursionConfiguration.RECURSION_LIMIT) {
-                        throw new RecursionException("Максимальная глубина рекурсии достигнута");
+                    if (recursionDequeHandler.countFileName(params) >= RecursionConfiguration.RECURSION_LIMIT) {
+                        throw new RecursionException("Р”РѕСЃС‚РёРіРЅСѓС‚Р° РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РіР»СѓР±РёРЅР° СЂРµРєСѓСЂСЃРёРё");
                     }
                 }
 
@@ -101,7 +101,7 @@ public class InputManager {
                 console.printResponse(response);
             }
             recursionDequeHandler.removeFileNameFirst();
-            console.printerr("Весь файл %s прочитан".formatted(fileName));
+            console.printerr("Р¤Р°Р№Р» %s РїСЂРѕС‡РёС‚Р°РЅ".formatted(fileName));
 
         } catch (PermissionDeniedException e) {
             return;
@@ -118,10 +118,10 @@ public class InputManager {
 
     private ResponseEntity runCommand(RequestEntity req) {
         String commandReq = req.getCommand();
-        if (commandReq.isEmpty()) return ResponseEntity.badRequest().body("Введено 0 аргументов");
+        if (commandReq.isEmpty()) return ResponseEntity.badRequest().body("Р’РІРµРґРµРЅРѕ 0 Р°СЂРіСѓРјРµРЅС‚РѕРІ");
         Command command = commandManager.getCommand(commandReq);
         if (command == null) {
-            return ResponseEntity.badRequest().body("Команда '" + commandReq + "' не найдена, используйте help");
+            return ResponseEntity.badRequest().body("РљРѕРјР°РЅРґР° '" + commandReq + "' РЅРµ РЅР°Р№РґРµРЅР°, РІРѕСЃРїРѕР»СЊР·СѓР№С‚РµСЃСЊ help");
         }
 
         return command.execute(req);

@@ -8,14 +8,14 @@ public class Show extends Command {
     private final CollectionManager collectionManager;
 
     public Show(CollectionManager collectionManager) {
-        super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
+        super("show", "РІС‹РІРµСЃС‚Рё РІ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РїРѕС‚РѕРє РІС‹РІРѕРґР° РІСЃРµ СЌР»РµРјРµРЅС‚С‹ РєРѕР»Р»РµРєС†РёРё РІ СЃС‚СЂРѕРєРѕРІРѕРј РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРё");
         this.collectionManager = collectionManager;
     }
 
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (!args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
 
         return ResponseEntity.ok().body(collectionManager.toString());
 

@@ -9,14 +9,14 @@ public class Info extends Command {
 
     public Info(CollectionManager collectionManager) {
         super("info",
-                "вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
+                "РІС‹РІРµСЃС‚Рё РІ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РїРѕС‚РѕРє РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєРѕР»Р»РµРєС†РёРё (С‚РёРї, РґР°С‚Р° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё, РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ Рё С‚.Рґ.)");
         this.collectionManager = collectionManager;
 
     }
 
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (!args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
 
         return ResponseEntity.ok().body(collectionManager.getCollectionInfo());
     }

@@ -10,15 +10,15 @@ public class CountLessGenre extends Command {
     private final CollectionManager collectionManager;
 
     public CountLessGenre(CollectionManager collectionManager) {
-        super("count_less_than_genre <genre>", "вывести количество элементов, значение поля genre которых меньше заданного");
+        super("count_less_than_genre <genre>", "РІС‹РІРµСЃС‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ, Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ genre РєРѕС‚РѕСЂС‹С… РјРµРЅСЊС€Рµ Р·Р°РґР°РЅРЅРѕРіРѕ");
         this.collectionManager = collectionManager;
     }
 
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
-        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("Коллекция пуста");
+        if (args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
+        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°");
         try {
             long count = 0;
             for (Movie movie : collectionManager.getElements()) {
@@ -30,7 +30,7 @@ public class CountLessGenre extends Command {
             }
             return ResponseEntity.ok().body(String.valueOf(count));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Неверное значение поля. (Доступные варианты - %s)".formatted(MovieGenre.getNames()));
+            return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. (Р’РѕР·РјРѕР¶РЅС‹Рµ РІР°СЂРёР°РЅС‚С‹ - %s)".formatted(MovieGenre.getNames()));
 
         }
     }

@@ -12,7 +12,7 @@ public class CoordinatesBuilder implements Builder<Coordinates> {
     }
 
     public CoordinatesBuilder buildX(Double x) {
-        if (x == null) throw new IllegalArgumentException("Нужно обязательно ввести значение X");
+        if (x == null) throw new IllegalArgumentException("X РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
         this.x = x;
         return this;
     }
@@ -23,8 +23,8 @@ public class CoordinatesBuilder implements Builder<Coordinates> {
     }
 
     public CoordinatesBuilder buildY(Double y) {
-        if (y == null) throw new IllegalArgumentException("Нужно обязательно ввести значение Y");
-        if (y > 522) throw new IllegalArgumentException("Максимальное значение поля Y: 522");
+        if (y == null) throw new IllegalArgumentException("Y РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
+        if (y > 522) throw new IllegalArgumentException("РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ Y: 522");
 
         this.y = y;
         return this;

@@ -15,7 +15,7 @@ public class Update extends Command {
     private final Scanner scanner;
 
     public Update(CollectionManager collectionManager, Scanner scanner, Console console) {
-        super("update <id>", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
+        super("update <id>", "РѕР±РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РєРѕР»Р»РµРєС†РёРё, id РєРѕС‚РѕСЂРѕРіРѕ СЂР°РІРµРЅ Р·Р°РґР°РЅРЅРѕРјСѓ");
         this.collectionManager = collectionManager;
         this.scanner = scanner;
         this.console = console;
@@ -24,19 +24,19 @@ public class Update extends Command {
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
         try {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
-                    .body("Элемента с таким id не существует в коллекции");
+                    .body("Р­Р»РµРјРµРЅС‚Р° СЃ С‚Р°РєРёРј id РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РєРѕР»Р»РµРєС†РёРё");
             Movie movie = InteractiveMovieCreator.create(console, scanner);
             collectionManager.addElementToCollection(id, movie);
-            return ResponseEntity.ok().body("Элемент успешно перезаписан");
+            return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚ СѓСЃРїРµС€РЅРѕ РїРµСЂРµР·Р°РїРёСЃР°РЅ");
 
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Int");
         } catch (InterruptedException e) {
-            return ResponseEntity.serverError().body("Ввод прекращен");
+            return ResponseEntity.serverError().body("Р’РІРѕРґ РїСЂРµРєСЂР°С‰РµРЅ");
 
         }
     }

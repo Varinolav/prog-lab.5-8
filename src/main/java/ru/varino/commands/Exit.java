@@ -5,12 +5,12 @@ import ru.varino.utility.communication.ResponseEntity;
 
 public class Exit extends Command {
     public Exit() {
-        super("exit", "завершить программу (без сохранения в файл)");
+        super("exit", "Р·Р°РІРµСЂС€РёС‚СЊ РїСЂРѕРіСЂР°РјРјСѓ (Р±РµР· СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ С„Р°Р№Р»)");
     }
 
     @Override
     public ResponseEntity execute(RequestEntity req) {
-        return ResponseEntity.serverError().body("Работа программы прекращена");
+        return ResponseEntity.serverError().body("Р Р°Р±РѕС‚Р° РїСЂРѕРіСЂР°РјРјС‹ Р·Р°РІРµСЂС€РµРЅР°");
     }
 
 }

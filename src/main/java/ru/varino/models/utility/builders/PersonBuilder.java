@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PersonBuilder implements Builder<Person> {
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private java.time.LocalDateTime birthday; //Поле может быть null
-    private Long weight; //Поле может быть null, Значение поля должно быть больше 0
-    private Country nationality; //Поле не может быть null
+    private String name; //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ null, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    private java.time.LocalDateTime birthday; //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ null
+    private Long weight; //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ null, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 0
+    private Country nationality; //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ null
 
 
     public String getName() {
@@ -18,8 +18,8 @@ public class PersonBuilder implements Builder<Person> {
     }
 
     public PersonBuilder buildName(String name) {
-        if (name == null) throw new IllegalArgumentException("Имя не может быть null");
-        if (name.isEmpty()) throw new IllegalArgumentException("Имя не может быть пустым");
+        if (name == null) throw new IllegalArgumentException("РРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
+        if (name.isEmpty()) throw new IllegalArgumentException("РРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
         this.name = name;
         return this;
     }
@@ -38,7 +38,7 @@ public class PersonBuilder implements Builder<Person> {
     }
 
     public PersonBuilder buildWeight(Long weight) {
-        if (weight != null && weight <= 0) throw new IllegalArgumentException("Вес должен быть больше 0");
+        if (weight != null && weight <= 0) throw new IllegalArgumentException("Р’РµСЃ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 0");
         this.weight = weight;
         return this;
     }
@@ -48,7 +48,7 @@ public class PersonBuilder implements Builder<Person> {
     }
 
     public PersonBuilder buildNationality(Country nationality) {
-        if (nationality == null) throw new IllegalArgumentException("Национальность не может быть null");
+        if (nationality == null) throw new IllegalArgumentException("РќР°С†РёРѕРЅР°Р»СЊРЅРѕСЃС‚СЊ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
 
         this.nationality = nationality;
         return this;

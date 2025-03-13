@@ -9,20 +9,20 @@ public class AverageTotalBoxOffice extends Command {
     private final CollectionManager collectionManager;
 
     public AverageTotalBoxOffice(CollectionManager collectionManager) {
-        super("average_of_total_box_office", "вывести среднее значение поля totalBoxOffice для всех элементов коллекции");
+        super("average_of_total_box_office", "РІС‹РІРµСЃС‚Рё СЃСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ totalBoxOffice РґР»СЏ РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ РєРѕР»Р»РµРєС†РёРё");
         this.collectionManager = collectionManager;
     }
 
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
-        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("Коллекция пуста");
+        if (!args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
+        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°");
         long sum = 0;
         for (Movie m : collectionManager.getElements()) {
             sum += m.getTotalBoxOffice();
         }
         long res = sum / collectionManager.getCollection().size();
-        return ResponseEntity.ok().body("Среднее значение totalBoxOffice: %s".formatted(res));
+        return ResponseEntity.ok().body("РЎСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ totalBoxOffice: %s".formatted(res));
     }
 }

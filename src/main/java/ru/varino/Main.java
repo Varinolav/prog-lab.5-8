@@ -18,12 +18,12 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Initialization...");
 
-        String fileName = "D:\\Java projects\\lab5\\src\\main\\java\\ru\\varino\\start.json";
+        String fileName ="D:\\Java projects\\lab5\\src\\main\\java\\ru\\varino\\start.json";
 
         Console console = new StandartConsole();
 
         if (fileName == null) {
-            console.println("Введите имя файла в виде аргумента командной строки");
+            console.println("Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° СЃ РїРѕРјРѕС‰СЊСЋ Р°СЂРіСѓРјРµРЅС‚Р° РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё");
             System.exit(0);
         }
         FileManager fileManager = FileManager.getInstance(console);

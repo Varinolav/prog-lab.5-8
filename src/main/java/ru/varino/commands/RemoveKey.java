@@ -8,24 +8,24 @@ public class RemoveKey extends Command {
     private final CollectionManager collectionManager;
 
     public RemoveKey(CollectionManager collectionManager) {
-        super("remove_key <id>", "удалить элемент из коллекции по его ключу");
+        super("remove_key <id>", "СѓРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ РёР· РєРѕР»Р»РµРєС†РёРё РїРѕ РµРіРѕ РєР»СЋС‡Сѓ");
         this.collectionManager = collectionManager;
     }
 
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
 
         try {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
-                    .body("Элемента с таким id не существует в коллекции");
+                    .body("Р­Р»РµРјРµРЅС‚Р° СЃ С‚Р°РєРёРј id РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РєРѕР»Р»РµРєС†РёРё");
             collectionManager.removeElementFromCollection(id);
-            return ResponseEntity.ok().body("Элемент удален из коллекции");
+            return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚ СѓРґР°Р»РµРЅ РёР· РєРѕР»Р»РµРєС†РёРё");
 
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Int");
 
         }
     }

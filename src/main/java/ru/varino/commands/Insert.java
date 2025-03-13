@@ -15,7 +15,7 @@ public class Insert extends Command {
     private Console console;
 
     public Insert(CollectionManager collectionManager, Scanner scanner, Console console) {
-        super("insert <id>", "добавить новый элемент с заданным ключом");
+        super("insert <id>", "РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚ СЃ Р·Р°РґР°РЅРЅС‹Рј РєР»СЋС‡РѕРј");
         this.collectionManager = collectionManager;
         this.scanner = scanner;
         this.console = console;
@@ -27,15 +27,15 @@ public class Insert extends Command {
         try {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) != null) return ResponseEntity.badRequest()
-                    .body("Элемент с таким id уже существует в коллекции");
+                    .body("Р­Р»РµРјРµРЅС‚Р° СЃ С‚Р°РєРёРј id СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РєРѕР»Р»РµРєС†РёРё");
             Movie movie = InteractiveMovieCreator.create(console, scanner);
             collectionManager.addElementToCollection(id, movie);
-            return ResponseEntity.ok().body("Элемент добавлен в коллекцию");
+            return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚ РґРѕР±Р°РІР»РµРЅ РІ РєРѕР»Р»РµРєС†РёСЋ");
 
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С‚РёРїР° Int");
         } catch (InterruptedException e) {
-            return ResponseEntity.serverError().body("Ввод прекращен");
+            return ResponseEntity.serverError().body("Р’РІРѕРґ РїСЂРµРєСЂР°С‰РµРЅ");
 
         }
     }

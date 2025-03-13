@@ -5,8 +5,8 @@ public enum Status {
     BADREQUEST(400, "Bad Request"),
     NOTFOUND(404, "Not found"),
     SERVERERROR(500, "Internal server error");
-    int exitCode;
-    String metaName;
+    final int exitCode;
+    final String metaName;
 
     Status(int exitCode, String metaName) {
         this.exitCode = exitCode;

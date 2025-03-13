@@ -31,9 +31,9 @@ public class CollectionManager {
     }
 
     public String getCollectionInfo() {
-        return "Тип данных: " + collection.getClass().getSimpleName() + "\n" +
-                "Дата инициализации: " + creationDate + "\n" +
-                "Количество элементов: " + collection.size();
+        return "РўРёРї РґР°РЅРЅС‹С…: " + collection.getClass().getSimpleName() + "\n" +
+                "Р”Р°С‚Р° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё: " + creationDate + "\n" +
+                "Р Р°Р·РјРµСЂ РєРѕР»Р»РµРєС†РёРё: " + collection.size();
     }
 
     public static String formatMovies(Hashtable<Integer, Movie> movies) {
@@ -54,7 +54,7 @@ public class CollectionManager {
 
     @Override
     public String toString() {
-        if (collection.isEmpty()) return "Коллекция пуста!";
+        if (collection.isEmpty()) return "РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°!";
         return formatMovies(collection);
     }
 

@@ -7,7 +7,7 @@ public class PermissionDeniedException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Недостаточно прав на " + super.getMessage();
+        return "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ РЅР° " + super.getMessage();
     }
 }
 

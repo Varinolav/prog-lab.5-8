@@ -2,8 +2,8 @@ package ru.varino.utility.communication;
 
 
 public class ResponseEntity {
-    private int exitCode;
-    private String metaName;
+    private final int exitCode;
+    private final String metaName;
     private String body;
 
     public ResponseEntity(Status status) {

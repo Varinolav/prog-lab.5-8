@@ -17,7 +17,7 @@ public class ReplaceIf extends Command {
     private final String type;
 
     public ReplaceIf(String type, CollectionManager collectionManager, Scanner scanner, Console console) {
-        super("replace_if_%s <id>".formatted(type), "заменить значение по ключу, если новое значение больше старого");
+        super("replace_if_%s <id>".formatted(type), "Р·Р°РјРµРЅРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРѕ РєР»СЋС‡Сѓ, РµСЃР»Рё РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ " + (type.equals("Р±РѕР»СЊС€Рµ") ? "Р±РѕР»СЊС€Рµ" : "РјРµРЅСЊС€Рµ") + " СЃС‚Р°СЂРѕРіРѕ");
         this.collectionManager = collectionManager;
         this.console = console;
         this.scanner = scanner;
@@ -27,11 +27,11 @@ public class ReplaceIf extends Command {
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
         try {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
-                    .body("Элемента с таким id не существует в коллекции");
+                    .body("Р­Р»РµРјРµРЅС‚Р° СЃ С‚Р°РєРёРј id РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
             Movie movie = InteractiveMovieCreator.create(console, scanner);
             Boolean comparisonResult = null;
             if (type.equals("greater")) {
@@ -43,14 +43,14 @@ public class ReplaceIf extends Command {
             if (comparisonResult == null) throw new RuntimeException();
             if (comparisonResult) {
                 collectionManager.addElementToCollection(id, movie);
-                return ResponseEntity.ok().body("Элемент успешно перезаписан");
+                return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РјРµРЅРµРЅ");
             } else {
-                return ResponseEntity.badRequest().body("Элемент не перезаписан");
+                return ResponseEntity.badRequest().body("Р­Р»РµРјРµРЅС‚ РЅРµ Р·Р°РјРµРЅРµРЅ");
             }
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Int");
         } catch (InterruptedException e) {
-            return ResponseEntity.serverError().body("Ввод прекращен");
+            return ResponseEntity.serverError().body("Р’РІРѕРґ РїСЂРµРєСЂР°С‰РµРЅ");
 
         }
     }

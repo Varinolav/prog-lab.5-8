@@ -8,7 +8,7 @@ public class Help extends Command {
     private final CommandManager commandManager;
 
     public Help(CommandManager commandManager) {
-        super("help", "вывести справку по доступным командам");
+        super("help", "РІС‹РІРµСЃС‚Рё СЃРїСЂР°РІРєСѓ РїРѕ РґРѕСЃС‚СѓРїРЅС‹Рј РєРѕРјР°РЅРґР°Рј");
         this.commandManager = commandManager;
     }
 
@@ -20,7 +20,7 @@ public class Help extends Command {
                 return ResponseEntity.ok().body(commandManager.getCommands().get(args).getDescription());
 
         } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("Команды не существует");
+            return ResponseEntity.badRequest().body("РљРѕРјР°РЅРґР° РЅРµ РЅР°Р№РґРµРЅР°");
         }
 
         StringBuilder builder = new StringBuilder();

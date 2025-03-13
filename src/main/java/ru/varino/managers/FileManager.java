@@ -21,20 +21,20 @@ public class FileManager {
     public void write(String fileName, String text) throws PermissionDeniedException {
         try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileName))) {
             var filePath = new File(fileName);
-            if (!filePath.canWrite()) throw new PermissionDeniedException("Запись");
+            if (!filePath.canWrite()) throw new PermissionDeniedException("Р§С‚РµРЅРёРµ");
 
             char[] chars = text.toCharArray();
             outputStreamWriter.write(chars, 0, chars.length);
         } catch (IOException e) {
-            console.println("Ошибка при записи файла");
+            console.println("РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё С„Р°Р№Р»Р°");
         }
     }
 
     public String read(String fileName) {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             var filePath = new File(fileName);
-            if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
-            if (!filePath.canWrite()) console.println("Внимание! Вы не сможете использовать команду save");
+            if (!filePath.canRead()) throw new PermissionDeniedException("Р§С‚РµРЅРёРµ");
+            if (!filePath.canWrite()) console.println("РќРµС‚ РїСЂР°РІ РЅР° Р·Р°РїРёСЃСЊ, РІС‹ РЅРµ СЃРјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєРѕРјР°РЅРґСѓ save");
             if (!filePath.exists()) throw new FileNotFoundException();
             StringBuilder out = new StringBuilder();
             String s;
@@ -43,13 +43,13 @@ public class FileManager {
             }
             return out.toString();
         } catch (FileNotFoundException e) {
-            console.printerr("Файл не найден");
+            console.printerr("Р¤Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ. РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°");
             return "";
         } catch (PermissionDeniedException e) {
-            console.printerr(e.getMessage() + ". Коллекция пуста");
+            console.printerr(e.getMessage() + ". РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°");
             return "";
         } catch (IOException e) {
-            console.printerr("Json-файл не найден. Коллекция пуста");
+            console.printerr("Json-С„Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ. РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°");
             return "";
         }
     }

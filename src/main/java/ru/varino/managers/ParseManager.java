@@ -57,7 +57,7 @@ public class ParseManager {
             idGen.setIdsFromCollection(movies);
             return movies;
         } catch (Exception e) {
-            console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста");
+            console.println("Json-С„Р°Р№Р» РїРѕРІСЂРµР¶РґС‘РЅ, РґР°РЅРЅС‹Рµ РёР· РЅРµРіРѕ РЅРµ Р±С‹Р»Рё РІР·СЏС‚С‹. РљРѕР»Р»РµРєС†РёСЏ, СЃ РєРѕС‚РѕСЂРѕР№ РІС‹ СЂР°Р±РѕС‚Р°РµС‚Рµ РїСѓСЃС‚Р°");
             return new Hashtable<Integer, Movie>();
         }
     }
@@ -68,7 +68,7 @@ public class ParseManager {
             return gson.toJson(movies);
         } catch (Exception e) {
             console.println(e.toString());
-            return "Ошибка парсинга";
+            return "РћС€РёР±РєР° РїР°СЂСЃРёРЅРіР°";
         }
     }
 }
