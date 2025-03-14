@@ -20,20 +20,22 @@ public class InputManager {
     private final Console console;
     private final CommandManager commandManager;
     private final RecursionDequeHandler recursionDequeHandler;
+    private final ScannerManager scannerManager;
 
 
     private static Scanner scanner;
 
 
-    private InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler) {
+    private InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
         this.console = console;
         this.commandManager = commandManager;
         this.recursionDequeHandler = recursionDequeHandler;
+        this.scannerManager = scannerManager;
     }
 
 
-    public static InputManager getInstance(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler) {
-        return instance == null ? instance = new InputManager(console, commandManager, recursionDequeHandler) : instance;
+    public static InputManager getInstance(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
+        return instance == null ? instance = new InputManager(console, commandManager, recursionDequeHandler, scannerManager) : instance;
     }
 
     public static void setScanner(Scanner scanner) {
@@ -46,6 +48,7 @@ public class InputManager {
 
     public void interactiveRun() {
         try {
+            scannerManager.setCurrentScanner(scanner);
             String[] userCommand;
             ResponseEntity response;
             do {
@@ -69,20 +72,22 @@ public class InputManager {
 
         try {
             String[] fileCommand;
-            ResponseEntity response = ResponseEntity.ok();
+            ResponseEntity response = ResponseEntity.ok().body("");
             File filePath = new File(fileName);
-            if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
             if (!filePath.exists()) throw new FileNotFoundException();
+            if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
 
             Scanner fileScanner = new Scanner(filePath);
+            scannerManager.setCurrentScanner(fileScanner);
             if (!fileScanner.hasNext()) throw new EmptyFileException(filePath.toString());
 
+            console.println("Начинается выполнение скрипта из файла %s".formatted(fileName));
             recursionDequeHandler.addFileNameLast(fileName);
 
             while (fileScanner.hasNextLine() && !response.getBody().equals("Работа программы завершена")) {
-                console.printf("%s-> ~ ".formatted(fileName));
-
+                console.printf("%s -> ~ ".formatted(fileName));
                 String scannedCommand = fileScanner.nextLine();
+
                 fileCommand = (scannedCommand.trim() + " ").split(" ", 2);
                 String command = fileCommand[0];
                 String params = fileCommand[1].trim();
@@ -99,19 +104,20 @@ public class InputManager {
 
                 response = runCommand(request);
                 console.printResponse(response);
+
             }
             recursionDequeHandler.removeFileNameFirst();
-            console.printerr("Файл %s прочитан".formatted(fileName));
-
-        } catch (PermissionDeniedException e) {
-            return;
+        } catch (PermissionDeniedException | RecursionException e) {
+            console.printerr(e.getMessage());
         } catch (FileNotFoundException e) {
-            return;
+            console.printerr("Файл не найден.");
         } catch (EmptyFileException e) {
-            return;
-        } catch (RecursionException e) {
-            throw new RuntimeException(e);
+            console.printerr("Файл пуст");
+        } finally {
+        if (recursionDequeHandler.isEmpty()) {
+            scannerManager.setCurrentScanner(scanner);
         }
+    }
 
 
     }

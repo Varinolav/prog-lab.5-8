@@ -18,14 +18,17 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Initialization...");
 
-        String fileName ="D:\\Java projects\\lab5\\src\\main\\java\\ru\\varino\\start.json";
-
         Console console = new StandartConsole();
 
-        if (fileName == null) {
+        String fileName = "";
+        try {
+
+            fileName = args[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
             console.println("Введите имя файла с помощью аргумента командной строки");
             System.exit(0);
         }
+
         FileManager fileManager = FileManager.getInstance(console);
         ParseManager parseManager = ParseManager.getInstance(console);
         CollectionManager collectionManager = CollectionManager.getInstance();
@@ -40,20 +43,21 @@ public class Main {
 
         CommandManager commandManager = CommandManager.getInstance();
         RecursionDequeHandler recursionDequeHandler = RecursionDequeHandler.getInstance();
-        InputManager inputManager = InputManager.getInstance(console, commandManager, recursionDequeHandler);
+        ScannerManager scannerManager = ScannerManager.getInstance();
+        InputManager inputManager = InputManager.getInstance(console, commandManager, recursionDequeHandler, scannerManager);
 
         commandManager
                 .add("show", new Show(collectionManager))
                 .add("help", new Help(commandManager))
                 .add("info", new Info(collectionManager))
-                .add("insert", new Insert(collectionManager, scanner, console))
-                .add("update", new Update(collectionManager, scanner, console))
+                .add("insert", new Insert(collectionManager, scannerManager, console))
+                .add("update", new Update(collectionManager, scannerManager, console))
                 .add("remove_key", new RemoveKey(collectionManager))
                 .add("clear", new Clear(collectionManager))
                 .add("save", new Save(fileName, parseManager, fileManager, collectionManager))
                 .add("exit", new Exit())
-                .add("replace_if_greater", new ReplaceIf("greater", collectionManager, scanner, console))
-                .add("replace_if_lower", new ReplaceIf("lower", collectionManager, scanner, console))
+                .add("replace_if_greater", new ReplaceIf("greater", collectionManager, scannerManager, console))
+                .add("replace_if_lower", new ReplaceIf("lower", collectionManager, scannerManager, console))
                 .add("remove_lower_key", new RemoveLowerKey(collectionManager))
                 .add("average_of_total_box_office", new AverageTotalBoxOffice(collectionManager))
                 .add("min_by_director", new MinByDirector(collectionManager))

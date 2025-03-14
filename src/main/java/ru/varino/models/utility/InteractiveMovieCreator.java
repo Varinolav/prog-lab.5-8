@@ -95,7 +95,7 @@ public class InteractiveMovieCreator {
                                   Scanner scanner) throws InterruptedException {
         while (true) {
             try {
-                console.printf(prompt);
+                console.println(prompt);
                 String input = scanner.nextLine().trim();
                 if (input.equals("q")) {
                     throw new InterruptedException("Ввод прекращен");

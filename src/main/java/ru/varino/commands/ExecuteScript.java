@@ -22,7 +22,7 @@ public class ExecuteScript extends Command {
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
         if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
-        console.println("Начинается выполнение скрипта из файла %s".formatted(args));
+
         inputManager.runScript(args);
         return ResponseEntity.ok().body("Скрипт выполнен");
     }

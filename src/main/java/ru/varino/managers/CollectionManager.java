@@ -43,7 +43,7 @@ public class CollectionManager {
         for (Map.Entry<Integer, Movie> entry : movies.entrySet()) {
             sb.append("  ")
                     .append(entry.getKey())
-                    .append("=")
+                    .append(" : ")
                     .append(entry.getValue())
                     .append(",\n");
         }

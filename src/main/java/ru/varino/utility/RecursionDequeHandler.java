@@ -2,11 +2,12 @@ package ru.varino.utility;
 
 
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class RecursionDequeHandler {
     private static RecursionDequeHandler instance;
-    private Deque<String> fileNameDeque;
+    private Deque<String> fileNameDeque = new ArrayDeque<>();
 
     public RecursionDequeHandler() {
     }
@@ -29,5 +30,9 @@ public class RecursionDequeHandler {
             if (s.equals(filename)) count++;
         }
         return count;
+    }
+
+    public boolean isEmpty() {
+        return fileNameDeque.isEmpty();
     }
 }

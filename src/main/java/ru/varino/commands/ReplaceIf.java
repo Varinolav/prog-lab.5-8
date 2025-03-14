@@ -1,6 +1,7 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
+import ru.varino.managers.ScannerManager;
 import ru.varino.models.Movie;
 import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.communication.RequestEntity;
@@ -12,15 +13,15 @@ import java.util.Scanner;
 public class ReplaceIf extends Command {
     private final CollectionManager collectionManager;
     private final Console console;
-    private final Scanner scanner;
+    private final ScannerManager scannerManager;
 
     private final String type;
 
-    public ReplaceIf(String type, CollectionManager collectionManager, Scanner scanner, Console console) {
+    public ReplaceIf(String type, CollectionManager collectionManager, ScannerManager scannerManager, Console console) {
         super("replace_if_%s <id>".formatted(type), "заменить значение по ключу, если новое значение " + (type.equals("больше") ? "больше" : "меньше") + " старого");
         this.collectionManager = collectionManager;
         this.console = console;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
         this.type = type;
     }
 
@@ -32,7 +33,7 @@ public class ReplaceIf extends Command {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
                     .body("Элемента с таким id не существует");
-            Movie movie = InteractiveMovieCreator.create(console, scanner);
+            Movie movie = InteractiveMovieCreator.create(console, scannerManager.getCurrentScanner());
             Boolean comparisonResult = null;
             if (type.equals("greater")) {
                 comparisonResult = movie.compareTo(collectionManager.getElementById(id)) > 0;

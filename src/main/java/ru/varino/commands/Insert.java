@@ -1,6 +1,7 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
+import ru.varino.managers.ScannerManager;
 import ru.varino.models.Movie;
 import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.io.Console;
@@ -11,13 +12,13 @@ import java.util.Scanner;
 
 public class Insert extends Command {
     private CollectionManager collectionManager;
-    private Scanner scanner;
+    private ScannerManager scannerManager;
     private Console console;
 
-    public Insert(CollectionManager collectionManager, Scanner scanner, Console console) {
+    public Insert(CollectionManager collectionManager, ScannerManager scannerManager, Console console) {
         super("insert <id>", "добавить новый элемент с заданным ключом");
         this.collectionManager = collectionManager;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
         this.console = console;
     }
 
@@ -28,7 +29,7 @@ public class Insert extends Command {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) != null) return ResponseEntity.badRequest()
                     .body("Элемента с таким id уже существует в коллекции");
-            Movie movie = InteractiveMovieCreator.create(console, scanner);
+            Movie movie = InteractiveMovieCreator.create(console, scannerManager.getCurrentScanner());
             collectionManager.addElementToCollection(id, movie);
             return ResponseEntity.ok().body("Элемент добавлен в коллекцию");
 

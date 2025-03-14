@@ -1,6 +1,7 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
+import ru.varino.managers.ScannerManager;
 import ru.varino.models.Movie;
 import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.communication.RequestEntity;
@@ -12,12 +13,12 @@ import java.util.Scanner;
 public class Update extends Command {
     private final CollectionManager collectionManager;
     private final Console console;
-    private final Scanner scanner;
+    private final ScannerManager scannerManager;
 
-    public Update(CollectionManager collectionManager, Scanner scanner, Console console) {
+    public Update(CollectionManager collectionManager, ScannerManager scannerManager, Console console) {
         super("update <id>", "обновить значение элемента коллекции, id которого равен заданному");
         this.collectionManager = collectionManager;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
         this.console = console;
     }
 
@@ -29,7 +30,7 @@ public class Update extends Command {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
                     .body("Элемента с таким id не существует в коллекции");
-            Movie movie = InteractiveMovieCreator.create(console, scanner);
+            Movie movie = InteractiveMovieCreator.create(console, scannerManager.getCurrentScanner());
             collectionManager.addElementToCollection(id, movie);
             return ResponseEntity.ok().body("Элемент успешно перезаписан");
 

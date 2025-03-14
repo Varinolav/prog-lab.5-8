@@ -33,9 +33,9 @@ public class FileManager {
     public String read(String fileName) {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             var filePath = new File(fileName);
+            if (!filePath.exists()) throw new FileNotFoundException();
             if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
             if (!filePath.canWrite()) console.println("Нет прав на запись, вы не сможете использовать команду save");
-            if (!filePath.exists()) throw new FileNotFoundException();
             StringBuilder out = new StringBuilder();
             String s;
             while ((s = bufferedReader.readLine()) != null) {
