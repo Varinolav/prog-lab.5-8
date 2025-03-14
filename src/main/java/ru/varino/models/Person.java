@@ -6,12 +6,20 @@ import ru.varino.utility.Validatable;
 
 import java.time.LocalDateTime;
 
+/**
+ * Модель человека
+ */
 public final class Person implements Comparable<Person>, Validatable {
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private java.time.LocalDateTime birthday; //Поле может быть null
-    private Long weight; //Поле может быть null, Значение поля должно быть больше 0
-    private Country nationality; //Поле не может быть null
+    private final String name; //Поле не может быть null, Строка не может быть пустой
+    private final java.time.LocalDateTime birthday; //Поле может быть null
+    private final Long weight; //Поле может быть null, Значение поля должно быть больше 0
+    private final Country nationality; //Поле не может быть null
 
+    /**
+     * Конструктор человека
+     *
+     * @param builder {@link PersonBuilder} билдер человека
+     */
     public Person(PersonBuilder builder) {
         this.name = builder.getName();
         this.birthday = builder.getBirthday();
@@ -23,33 +31,6 @@ public final class Person implements Comparable<Person>, Validatable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDateTime birthday) {
-        this.birthday = birthday;
-    }
-
-    public Long getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Long weight) {
-        this.weight = weight;
-    }
-
-    public Country getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(Country nationality) {
-        this.nationality = nationality;
-    }
 
     @Override
     public String toString() {
@@ -61,6 +42,12 @@ public final class Person implements Comparable<Person>, Validatable {
                 '}';
     }
 
+    /**
+     * Сравнить два человека по длине их имени
+     *
+     * @param p человек для сравнения
+     * @return результат сравнения
+     */
     @Override
     public int compareTo(Person p) {
         int delta = name.length() - p.getName().length();
@@ -68,12 +55,14 @@ public final class Person implements Comparable<Person>, Validatable {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean validate() {
         if (name == null || name.isBlank()) return false;
         if (weight != null && weight <= 0) return false;
-        if (nationality == null) return false;
-        return true;
+        return nationality != null;
 
     }
 }

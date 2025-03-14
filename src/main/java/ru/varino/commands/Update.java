@@ -1,42 +1,49 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
+import ru.varino.managers.ScannerManager;
 import ru.varino.models.Movie;
 import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 import ru.varino.utility.io.Console;
 
-import java.util.Scanner;
-
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ Update
+ */
 public class Update extends Command {
     private final CollectionManager collectionManager;
     private final Console console;
-    private final Scanner scanner;
+    private final ScannerManager scannerManager;
 
-    public Update(CollectionManager collectionManager, Scanner scanner, Console console) {
-        super("update <id>", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
+    public Update(CollectionManager collectionManager, ScannerManager scannerManager, Console console) {
+        super("update <id>", "РѕР±РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РєРѕР»Р»РµРєС†РёРё, id РєРѕС‚РѕСЂРѕРіРѕ СЂР°РІРµРЅ Р·Р°РґР°РЅРЅРѕРјСѓ");
         this.collectionManager = collectionManager;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
         this.console = console;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
         try {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) == null) return ResponseEntity.badRequest()
-                    .body("Элемента с таким id не существует в коллекции");
-            Movie movie = InteractiveMovieCreator.create(console, scanner);
+                    .body("Р­Р»РµРјРµРЅС‚Р° СЃ С‚Р°РєРёРј id РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РєРѕР»Р»РµРєС†РёРё");
+            Movie movie = InteractiveMovieCreator.create(console, scannerManager.getCurrentScanner());
             collectionManager.addElementToCollection(id, movie);
-            return ResponseEntity.ok().body("Элемент успешно перезаписан");
+            return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚ СѓСЃРїРµС€РЅРѕ РїРµСЂРµР·Р°РїРёСЃР°РЅ");
 
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Int");
         } catch (InterruptedException e) {
-            return ResponseEntity.serverError().body("Ввод прекращен");
+            return ResponseEntity.serverError().body("Р’РІРѕРґ РїСЂРµРєСЂР°С‰РµРЅ");
 
         }
     }

@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.gradleup.shadow") version "9.0.0-beta10"
 }
 
 group = "ru.varino"
@@ -20,3 +21,20 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = "ru.varino.Main"
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.gradleup.shadow:shadow-gradle-plugin:7.0.0")
+    }
+}
+// `apply plugin` stuffs are used with `buildscript`.
+apply(plugin = "java")
+apply(plugin = "com.gradleup.shadow")

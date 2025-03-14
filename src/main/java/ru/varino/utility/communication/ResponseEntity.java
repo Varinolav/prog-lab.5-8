@@ -1,16 +1,29 @@
 package ru.varino.utility.communication;
 
-
+/**
+ * Класс ответа команды
+ */
 public class ResponseEntity {
-    private int exitCode;
-    private String metaName;
+    private final int exitCode;
+    private final String metaName;
     private String body;
 
-    public ResponseEntity(Status status) {
+    /**
+     * Конструктор ответа
+     *
+     * @param status {@link Status} Енам статуса
+     */
+    private ResponseEntity(Status status) {
         this.exitCode = status.getExitCode();
         this.metaName = status.getMetaName();
     }
 
+    /**
+     * Добавить тело ответа
+     *
+     * @param body тело ответа
+     * @return этот же ответ
+     */
     public ResponseEntity body(String body) {
         this.body = body;
         return this;
@@ -28,23 +41,48 @@ public class ResponseEntity {
         return metaName;
     }
 
+    /**
+     * Вернуть ответ со статусом "Ок"
+     *
+     * @return ответ "Ок"
+     */
     public static ResponseEntity ok() {
         return new ResponseEntity(Status.OK);
     }
 
+    /**
+     * Вернуть ответ со статусом "Плохой запрос"
+     *
+     * @return ответ "Плохой запрос"
+     */
     public static ResponseEntity badRequest() {
         return new ResponseEntity(Status.BADREQUEST);
     }
 
+    /**
+     * Вернуть ответ со статусом "Не найдено"
+     *
+     * @return ответ "Не найдено"
+     */
     public static ResponseEntity notFound() {
         return new ResponseEntity(Status.NOTFOUND);
     }
 
+    /**
+     * Вернуть ответ со статусом "Ошибка сервера"
+     *
+     * @return ответ "Ошибка сервера"
+     */
     public static ResponseEntity serverError() {
         return new ResponseEntity(Status.SERVERERROR);
     }
 
-    public static ResponseEntity exit(){
+    /**
+     * Вернуть ответ со статусом "Выход"
+     *
+     * @return ответ "Выход"
+     */
+    public static ResponseEntity exit() {
         return new ResponseEntity(Status.SERVERERROR);
     }
 }

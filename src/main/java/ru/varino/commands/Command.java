@@ -5,6 +5,9 @@ import ru.varino.utility.Executable;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * Абстрактный класс команды, описывающий команду
+ */
 public abstract class Command implements Executable {
     private final String name;
     private final String description;
@@ -24,7 +27,11 @@ public abstract class Command implements Executable {
         return description;
     }
 
-
+    /**
+     * {@inheritDoc}
+     * @param request запрос для выполнения команды
+     * @return ответ команды
+     */
     public abstract ResponseEntity execute(RequestEntity request);
 
     @Override

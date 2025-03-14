@@ -1,24 +1,31 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
-import ru.varino.managers.CommandManager;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ Clear
+ */
 public class Clear extends Command {
     private final CollectionManager collectionManager;
 
     public Clear(CollectionManager collectionManager) {
-        super("clear", "очистить коллекцию");
+        super("clear", "РѕС‡РёСЃС‚РёС‚СЊ РєРѕР»Р»РµРєС†РёСЋ");
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (!args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
         collectionManager.clearCollection();
-        return ResponseEntity.ok().body("Коллекция очищена");
+        return ResponseEntity.ok().body("РљРѕР»Р»РµРєС†РёСЏ РѕС‡РёС‰РµРЅР°");
 
 
     }

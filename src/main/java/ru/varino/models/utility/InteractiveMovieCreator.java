@@ -17,14 +17,25 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * РљР»Р°СЃСЃ РёРЅС‚РµСЂР°РєС‚РёРІРЅРѕРіРѕ РІРІРѕРґР° С„РёР»СЊРјР°
+ */
 public class InteractiveMovieCreator {
 
+    /**
+     * Р—Р°РїСЂР°С€РёРІР°РµС‚ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕР»СЏ Рё СЃРѕР·РґР°РµС‚ СЌР»РµРјРµРЅС‚ РєРѕР»Р»РµРєС†РёРё
+     *
+     * @param console РєРѕРЅСЃРѕР»СЊ
+     * @param scanner СЃРєР°РЅРЅРµСЂ
+     * @return СЌР»РµРјРµРЅС‚ РєРѕР»Р»РµРєС†РёРё
+     * @throws InterruptedException РµСЃР»Рё РІРІРѕРґ РїСЂРµСЂРІР°РЅ, РІС‹Р±СЂР°СЃС‹РІР°РµС‚СЃСЏ РёСЃРєР»СЋС‡РµРЅРёРµ
+     */
     public static Movie create(Console console, Scanner scanner) throws InterruptedException {
         Function<String, Country> CountryValueOf = x -> {
             try {
                 return Country.valueOf(x);
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Поле должно быть типа Country");
+                throw new IllegalArgumentException("РџРѕР»Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‚РёРїР° Country");
             }
         };
 
@@ -32,7 +43,7 @@ public class InteractiveMovieCreator {
             try {
                 return MovieGenre.valueOf(x);
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Поле должно быть типа MovieGenre");
+                throw new IllegalArgumentException("РџРѕР»Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‚РёРїР° MovieGenre");
             }
         };
 
@@ -40,7 +51,7 @@ public class InteractiveMovieCreator {
             try {
                 return Double.parseDouble(x);
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("Поле должно быть типа double");
+                throw new NumberFormatException("РџРѕР»Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‚РёРїР° double");
             }
         };
 
@@ -48,7 +59,7 @@ public class InteractiveMovieCreator {
             try {
                 return Integer.parseInt(x);
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("Поле должно быть типа integer");
+                throw new NumberFormatException("РџРѕР»Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‚РёРїР° integer");
             }
         };
 
@@ -56,7 +67,7 @@ public class InteractiveMovieCreator {
             try {
                 return Long.parseLong(x);
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("Поле должно быть типа Long");
+                throw new NumberFormatException("РџРѕР»Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‚РёРїР° Long");
             }
         };
 
@@ -64,30 +75,40 @@ public class InteractiveMovieCreator {
 
         MovieBuilder movieBuilder = new MovieBuilder();
         movieBuilder.buildId();
-        input("Введите имя: ", console, movieBuilder::buildName, String::valueOf, scanner);
+        input("Р’РІРµРґРёС‚Рµ РёРјСЏ: ", console, movieBuilder::buildName, String::valueOf, scanner);
 
         CoordinatesBuilder coordinatesBuilder = new CoordinatesBuilder();
-        input("Введите координату X: ", console, coordinatesBuilder::buildX, parseDouble, scanner);
-        input("Введите координату Y: ", console, coordinatesBuilder::buildY, parseDouble, scanner);
+        input("Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚Сѓ X: ", console, coordinatesBuilder::buildX, parseDouble, scanner);
+        input("Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚Сѓ Y: ", console, coordinatesBuilder::buildY, parseDouble, scanner);
         movieBuilder.buildCoordinates(coordinatesBuilder.build());
 
         movieBuilder.buildCreationDate(LocalDate.now());
-        input("Введите число оскаров: ", console, movieBuilder::buildOscarsCount, parseInt, scanner);
-        input("Введите объём кассовых сборов: ", console, movieBuilder::buildTotalBoxOffice, parseInt, scanner);
-        input("Введите слоган: ", console, movieBuilder::buildTagline, String::valueOf, scanner);
-        input("Введите жанр: (Возможные варианты - %s) ".formatted(MovieGenre.getNames()), console, movieBuilder::buildGenre, GenreValueOf, scanner);
+        input("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕСЃРєР°СЂРѕРІ: ", console, movieBuilder::buildOscarsCount, parseInt, scanner);
+        input("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РєР°СЃСЃРѕРІС‹С… СЃР±РѕСЂРѕРІ: ", console, movieBuilder::buildTotalBoxOffice, parseInt, scanner);
+        input("Р’РІРµРґРёС‚Рµ СЃР»РѕРіР°РЅ: ", console, movieBuilder::buildTagline, String::valueOf, scanner);
+        input("Р’РІРµРґРёС‚Рµ Р¶Р°РЅСЂ: (Р’РѕР·РјРѕР¶РЅС‹Рµ РІР°СЂРёР°РЅС‚С‹ - %s) ".formatted(MovieGenre.getNames()), console, movieBuilder::buildGenre, GenreValueOf, scanner);
 
         PersonBuilder personBuilder = new PersonBuilder();
-        input("Введите имя режиссера: ", console, personBuilder::buildName, String::valueOf, scanner);
-        input("Введите дату рождения режиссера: ", console, personBuilder::buildBirthday, parseLocalDateTime, scanner);
-        input("Введите вес режиссера: ", console, personBuilder::buildWeight, parseLong, scanner);
-        input("Введите национальность режиссера: (Возможные варианты - %s) ".formatted(Country.getNames()), console, personBuilder::buildNationality, CountryValueOf, scanner);
+        input("Р’РІРµРґРёС‚Рµ РёРјСЏ СЂРµР¶РёСЃСЃРµСЂР°: ", console, personBuilder::buildName, String::valueOf, scanner);
+        input("Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ СЂРµР¶РёСЃСЃРµСЂР°: ", console, personBuilder::buildBirthday, parseLocalDateTime, scanner);
+        input("Р’РІРµРґРёС‚Рµ РІРµСЃ СЂРµР¶РёСЃСЃРµСЂР°: ", console, personBuilder::buildWeight, parseLong, scanner);
+        input("Р’РІРµРґРёС‚Рµ РЅР°С†РёРѕРЅР°Р»СЊРЅРѕСЃС‚СЊ СЂРµР¶РёСЃСЃРµСЂР°: (Р’РѕР·РјРѕР¶РЅС‹Рµ РІР°СЂРёР°РЅС‚С‹ - %s) ".formatted(Country.getNames()), console, personBuilder::buildNationality, CountryValueOf, scanner);
         movieBuilder.buildDirector(personBuilder.build());
 
         return movieBuilder.build();
     }
 
-
+    /**
+     * Р—Р°РїСЂР°С€РёРІР°РµС‚ РїРѕР»Рµ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РµРіРѕ.
+     *
+     * @param prompt  РІС‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ
+     * @param console РєРѕРЅСЃРѕР»СЊ
+     * @param setter  РјРµС‚РѕРґ Р±РёР»РґРµСЂР°
+     * @param parser  РїР°СЂСЃРµСЂ РїРµСЂРµРґР°РЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
+     * @param scanner СЃРєР°РЅРЅРµСЂ
+     * @param <T>     РљР»Р°СЃСЃ РєРѕР»Р»РµРєС†РёРё
+     * @throws InterruptedException РµСЃР»Рё РІРІРѕРґ РїСЂРµСЂРІР°РЅ, РІС‹Р±СЂР°СЃС‹РІР°РµС‚СЃСЏ РёСЃРєР»СЋС‡РµРЅРёРµ
+     */
     private static <T> void input(String prompt,
                                   Console console,
                                   Consumer<T> setter,
@@ -95,10 +116,10 @@ public class InteractiveMovieCreator {
                                   Scanner scanner) throws InterruptedException {
         while (true) {
             try {
-                console.printf(prompt);
+                console.println(prompt);
                 String input = scanner.nextLine().trim();
                 if (input.equals("q")) {
-                    throw new InterruptedException("Ввод прекращен");
+                    throw new InterruptedException("Р’РІРѕРґ РїСЂРµРєСЂР°С‰РµРЅ");
                 }
 
                 if (input.isEmpty()) {
@@ -106,13 +127,11 @@ public class InteractiveMovieCreator {
                 } else {
                     setter.accept(parser.apply(input));
                 }
-
                 return;
-
             } catch (IllegalArgumentException e) {
                 console.printerr(e.getMessage());
             } catch (DateTimeParseException e) {
-                console.printerr("Дата введена неправильно. Правильный формат: yyyy-MM-dd HH:mm");
+                console.printerr("Р”Р°С‚Р° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІРІРµРґРµРЅР° РІ С„РѕСЂРјР°С‚Рµ: yyyy-MM-dd HH:mm");
             }
         }
 

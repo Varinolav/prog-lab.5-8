@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="PROJECT" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/commands/AverageTotalBoxOffice.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/commands/CountLessGenre.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/commands/MinByDirector.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/commands/RemoveKey.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/commands/Update.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/exceptions/EmptyFileException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/exceptions/PermissionDeniedException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/managers/CollectionManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/managers/FileManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/managers/InputManager.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/managers/ParseManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/models/utility/InteractiveMovieCreator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/varino/models/utility/builders/CoordinatesBuilder.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

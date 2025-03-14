@@ -15,25 +15,31 @@ import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+
+/**
+ * Класс для управления вводом и запуском команд из скрипта
+ */
 public class InputManager {
     private static InputManager instance;
     private final Console console;
     private final CommandManager commandManager;
     private final RecursionDequeHandler recursionDequeHandler;
+    private final ScannerManager scannerManager;
 
 
     private static Scanner scanner;
 
 
-    private InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler) {
+    private InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
         this.console = console;
         this.commandManager = commandManager;
         this.recursionDequeHandler = recursionDequeHandler;
+        this.scannerManager = scannerManager;
     }
 
 
-    public static InputManager getInstance(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler) {
-        return instance == null ? instance = new InputManager(console, commandManager, recursionDequeHandler) : instance;
+    public static InputManager getInstance(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
+        return instance == null ? instance = new InputManager(console, commandManager, recursionDequeHandler, scannerManager) : instance;
     }
 
     public static void setScanner(Scanner scanner) {
@@ -44,8 +50,12 @@ public class InputManager {
         return scanner;
     }
 
+    /**
+     * Запуск интерактивного режима работы
+     */
     public void interactiveRun() {
         try {
+            scannerManager.setCurrentScanner(scanner);
             String[] userCommand;
             ResponseEntity response;
             do {
@@ -57,32 +67,39 @@ public class InputManager {
                 RequestEntity request = RequestEntity.create(command, params);
                 response = runCommand(request);
                 console.printResponse(response);
-            } while (!response.getBody().equals("������ ��������� ����������"));
+            } while (!response.getBody().equals("Работа программы завершена"));
         } catch (NoSuchElementException exception) {
             console.println("");
-            console.printerr("������ ��������� ����������");
+            console.printerr("Работа программы прекращена!");
         }
 
     }
 
+    /**
+     * Метод запуска скрипта
+     *
+     * @param fileName имя файла
+     */
     public void runScript(String fileName) {
 
         try {
             String[] fileCommand;
-            ResponseEntity response = ResponseEntity.ok();
+            ResponseEntity response = ResponseEntity.ok().body("");
             File filePath = new File(fileName);
-            if (!filePath.canRead()) throw new PermissionDeniedException("������");
             if (!filePath.exists()) throw new FileNotFoundException();
+            if (!filePath.canRead()) throw new PermissionDeniedException("Чтение");
 
             Scanner fileScanner = new Scanner(filePath);
+            scannerManager.setCurrentScanner(fileScanner);
             if (!fileScanner.hasNext()) throw new EmptyFileException(filePath.toString());
 
+            console.println("Начинается выполнение скрипта из файла %s".formatted(fileName));
             recursionDequeHandler.addFileNameLast(fileName);
 
-            while (fileScanner.hasNextLine() && !response.getBody().equals("������ ��������� ����������")) {
-                console.printf("%s-> ~ ".formatted(fileName));
-
+            while (fileScanner.hasNextLine() && !response.getBody().equals("Работа программы завершена")) {
+                console.printf("%s -> ~ ".formatted(fileName));
                 String scannedCommand = fileScanner.nextLine();
+
                 fileCommand = (scannedCommand.trim() + " ").split(" ", 2);
                 String command = fileCommand[0];
                 String params = fileCommand[1].trim();
@@ -92,36 +109,43 @@ public class InputManager {
 
 
                 if (command.equals("execute_script")) {
-                    if (recursionDequeHandler.countFileName(params) > RecursionConfiguration.RECURSION_LIMIT) {
-                        throw new RecursionException("������������ ������� �������� ����������");
+                    if (recursionDequeHandler.countFileName(params) >= RecursionConfiguration.RECURSION_LIMIT) {
+                        throw new RecursionException("Достигнута максимальная глубина рекурсии");
                     }
                 }
 
                 response = runCommand(request);
                 console.printResponse(response);
+
             }
             recursionDequeHandler.removeFileNameFirst();
-            console.printerr("���� ���� %s ��������".formatted(fileName));
-
-        } catch (PermissionDeniedException e) {
-            return;
+        } catch (PermissionDeniedException | RecursionException e) {
+            console.printerr(e.getMessage());
         } catch (FileNotFoundException e) {
-            return;
+            console.printerr("Файл не найден.");
         } catch (EmptyFileException e) {
-            return;
-        } catch (RecursionException e) {
-            throw new RuntimeException(e);
+            console.printerr("Файл пуст");
+        } finally {
+            if (recursionDequeHandler.isEmpty()) {
+                scannerManager.setCurrentScanner(scanner);
+            }
         }
 
 
     }
 
+    /**
+     * Метод исполнения команды
+     *
+     * @param req запрос
+     * @return ответ после выполнения команды
+     */
     private ResponseEntity runCommand(RequestEntity req) {
         String commandReq = req.getCommand();
-        if (commandReq.isEmpty()) return ResponseEntity.badRequest().body("������� 0 ����������");
+        if (commandReq.isEmpty()) return ResponseEntity.badRequest().body("Введено 0 аргументов");
         Command command = commandManager.getCommand(commandReq);
         if (command == null) {
-            return ResponseEntity.badRequest().body("������� '" + commandReq + "' �� �������, ����������� help");
+            return ResponseEntity.badRequest().body("Команда '" + commandReq + "' не найдена, воспользуйтесь help");
         }
 
         return command.execute(req);

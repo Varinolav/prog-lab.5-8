@@ -4,6 +4,10 @@ import ru.varino.models.Movie;
 
 import java.util.*;
 
+
+/**
+ * Класс для работы с коллекцией
+ */
 public class CollectionManager {
     private static CollectionManager instance;
     private Hashtable<Integer, Movie> collection;
@@ -30,12 +34,23 @@ public class CollectionManager {
         return creationDate;
     }
 
+    /**
+     * Получить данны о коллекции
+     *
+     * @return данные о коллекции
+     */
     public String getCollectionInfo() {
-        return "��� ������: " + collection.getClass().getSimpleName() + "\n" +
-                "���� �������������: " + creationDate + "\n" +
-                "���������� ���������: " + collection.size();
+        return "Тип данных: " + collection.getClass().getSimpleName() + "\n" +
+                "Дата инициализации: " + creationDate + "\n" +
+                "Размер коллекции: " + collection.size();
     }
 
+    /**
+     * Форматирование вывода
+     *
+     * @param movies коллекция
+     * @return форматированный вывод
+     */
     public static String formatMovies(Hashtable<Integer, Movie> movies) {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -43,7 +58,7 @@ public class CollectionManager {
         for (Map.Entry<Integer, Movie> entry : movies.entrySet()) {
             sb.append("  ")
                     .append(entry.getKey())
-                    .append("=")
+                    .append(" : ")
                     .append(entry.getValue())
                     .append(",\n");
         }
@@ -54,7 +69,7 @@ public class CollectionManager {
 
     @Override
     public String toString() {
-        if (collection.isEmpty()) return "��������� �����!";
+        if (collection.isEmpty()) return "Коллекция пуста!";
         return formatMovies(collection);
     }
 
@@ -62,6 +77,7 @@ public class CollectionManager {
         collection.put(id, movie);
 
     }
+
     public Collection<Movie> getElements() {
         return collection.values();
     }

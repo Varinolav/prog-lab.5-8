@@ -8,6 +8,9 @@ import ru.varino.models.utility.IdGenerator;
 
 import java.time.LocalDate;
 
+/**
+ * Р‘РёР»РґРµСЂ С„РёР»СЊРјРѕРІ
+ */
 public class MovieBuilder implements Builder<Movie> {
     private Integer id;
     private String name;
@@ -26,14 +29,14 @@ public class MovieBuilder implements Builder<Movie> {
     }
 
     public MovieBuilder buildName(String name) {
-        if (name == null) throw new IllegalArgumentException("Имя не может быть null");
-        if (name.isEmpty()) throw new IllegalArgumentException("Имя не может быть пустым");
+        if (name == null) throw new IllegalArgumentException("РРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
+        if (name.isEmpty()) throw new IllegalArgumentException("РёРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
         this.name = name;
         return this;
     }
 
     public MovieBuilder buildCoordinates(Coordinates coords) {
-        if (coords == null) throw new IllegalArgumentException("Координаты не могут быть null");
+        if (coords == null) throw new IllegalArgumentException("РљРѕРѕСЂРґРёРЅР°С‚С‹ РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ null");
 
 
         this.coordinates = coords;
@@ -41,7 +44,7 @@ public class MovieBuilder implements Builder<Movie> {
     }
 
     public MovieBuilder buildCreationDate(LocalDate creationDate) {
-        if (creationDate == null) throw new IllegalArgumentException("Дата создания не может быть null");
+        if (creationDate == null) throw new IllegalArgumentException("Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
 
         this.creationDate = creationDate;
         return this;
@@ -50,16 +53,16 @@ public class MovieBuilder implements Builder<Movie> {
 
     public MovieBuilder buildOscarsCount(Integer oscarsCount) {
         if (oscarsCount != null && oscarsCount <= 0)
-            throw new IllegalArgumentException("Количество оскаров должно быть больше 0");
+            throw new IllegalArgumentException("РљРѕР»РёС‡РµСЃС‚РІРѕ РѕСЃРєР°СЂРѕРІ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 0");
         this.oscarsCount = oscarsCount;
         return this;
 
     }
 
     public MovieBuilder buildTotalBoxOffice(Integer totalBoxOffice) {
-        if (totalBoxOffice == null) throw new IllegalArgumentException("Нужно обязательно ввести значение поля");
+        if (totalBoxOffice == null) throw new IllegalArgumentException("Р§РёСЃР»Рѕ РєР°СЃСЃРѕРІС‹С… СЃР±РѕСЂРѕРІ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
         if (totalBoxOffice <= 0)
-            throw new IllegalArgumentException("Количетсво сборов должно быть больше 0");
+            throw new IllegalArgumentException("Р§РёСЃР»Рѕ РєР°СЃСЃРѕРІС‹С… СЃР±РѕСЂРѕРІ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 0");
 
         this.totalBoxOffice = totalBoxOffice;
         return this;
@@ -74,7 +77,7 @@ public class MovieBuilder implements Builder<Movie> {
 
     public MovieBuilder buildGenre(MovieGenre genre) {
 
-        if (genre == null) throw new IllegalArgumentException("Жанр не может быть null");
+        if (genre == null) throw new IllegalArgumentException("Р–Р°РЅСЂ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
 
         this.genre = genre;
         return this;
@@ -123,6 +126,9 @@ public class MovieBuilder implements Builder<Movie> {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
         name = null;
@@ -135,6 +141,9 @@ public class MovieBuilder implements Builder<Movie> {
         director = null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Movie build() {
         return new Movie(this);

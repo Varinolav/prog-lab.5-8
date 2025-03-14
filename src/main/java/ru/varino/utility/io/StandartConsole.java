@@ -2,9 +2,7 @@ package ru.varino.utility.io;
 
 import ru.varino.utility.communication.ResponseEntity;
 
-/**
- * Класс для вывода результата работы команд
- */
+
 public class StandartConsole implements Console {
 
 

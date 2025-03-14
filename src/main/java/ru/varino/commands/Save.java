@@ -10,6 +10,9 @@ import ru.varino.utility.communication.ResponseEntity;
 
 import java.util.Hashtable;
 
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ Save
+ */
 public class Save extends Command {
     private final String fileName;
     private final ParseManager parseManager;
@@ -17,17 +20,22 @@ public class Save extends Command {
     private final CollectionManager collectionManager;
 
     public Save(String fileName, ParseManager parseManager, FileManager fileManager, CollectionManager collectionManager) {
-        super("save", "сохранить коллекцию в файл");
+        super("save", "СЃРѕС…СЂР°РЅРёС‚СЊ РєРѕР»Р»РµРєС†РёСЋ РІ С„Р°Р№Р»");
         this.fileName = fileName;
         this.parseManager = parseManager;
         this.fileManager = fileManager;
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (!args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
         try {
             Hashtable<Integer, Movie> collection = collectionManager.getCollection();
             String json = parseManager.getJsonFromHashTable(collection);
@@ -36,6 +44,6 @@ public class Save extends Command {
             return ResponseEntity.badRequest().body(e.getMessage());
 
         }
-        return ResponseEntity.ok().body("Коллекция сохранена в файл");
+        return ResponseEntity.ok().body("РљРѕР»Р»РµРєС†РёСЏ СЃРѕС…СЂР°РЅРµРЅР° РІ С„Р°Р№Р»");
     }
 }

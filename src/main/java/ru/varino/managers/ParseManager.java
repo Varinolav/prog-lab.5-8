@@ -16,7 +16,9 @@ import com.google.gson.reflect.TypeToken;
 import ru.varino.managers.utility.adapters.LocalDateAdapter;
 import ru.varino.managers.utility.adapters.LocalDateTimeAdapter;
 
-
+/**
+ * Класс для парсинга коллекции
+ */
 public class ParseManager {
     private static ParseManager instance;
 
@@ -37,7 +39,12 @@ public class ParseManager {
         return instance == null ? instance = new ParseManager(console) : instance;
     }
 
-
+    /**
+     * Конвертирует json в хэш-таблицу
+     *
+     * @param json json
+     * @return хэш-таблица - коллекция
+     */
     public Hashtable<Integer, Movie> getHashTableFromJson(String json) {
         IdGenerator idGen = IdGenerator.getInstance();
         try {
@@ -57,18 +64,23 @@ public class ParseManager {
             idGen.setIdsFromCollection(movies);
             return movies;
         } catch (Exception e) {
-            console.println("Json-���� ��������, ������ �� ���� �� ���� �����. ���������, � ������� �� ��������� �����");
+            console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста");
             return new Hashtable<Integer, Movie>();
         }
     }
 
-
+    /**
+     * Конвертирует хэш-таблицу в json
+     *
+     * @param movies коллекция
+     * @return json
+     */
     public String getJsonFromHashTable(Hashtable<Integer, Movie> movies) {
         try {
             return gson.toJson(movies);
         } catch (Exception e) {
             console.println(e.toString());
-            return "������ ��������";
+            return "Ошибка парсинга";
         }
     }
 }

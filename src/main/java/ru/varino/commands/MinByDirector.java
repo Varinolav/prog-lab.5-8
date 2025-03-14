@@ -5,19 +5,27 @@ import ru.varino.models.Movie;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ MinByDirector
+ */
 public class MinByDirector extends Command {
     private final CollectionManager collectionManager;
 
     public MinByDirector(CollectionManager collectionManager) {
-        super("min_by_director", "вывести любой объект из коллекции, значение поля director которого является минимальным");
+        super("min_by_director", "РІС‹РІРµСЃС‚Рё Р»СЋР±РѕР№ РѕР±СЉРµРєС‚ РёР· РєРѕР»Р»РµРєС†РёРё, Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ director РєРѕС‚РѕСЂРѕРіРѕ СЏРІР»СЏРµС‚СЃСЏ РјРёРЅРёРјР°Р»СЊРЅС‹Рј");
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
-        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("Коллекция пуста");
+        if (!args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
+        if (collectionManager.getCollection().isEmpty()) return ResponseEntity.badRequest().body("РљРѕР»Р»РµРєС†РёСЏ РїСѓСЃС‚Р°");
 
         Movie minMovieByDirector = null;
         for (Movie movie : collectionManager.getElements()) {
@@ -26,7 +34,7 @@ public class MinByDirector extends Command {
                 break;
             }
         }
-        if (minMovieByDirector == null) return ResponseEntity.badRequest().body("У всех элементов поле director не определено");
+        if (minMovieByDirector == null) return ResponseEntity.badRequest().body("РЈ РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ РїРѕР»Рµ director РЅРµ РѕРїСЂРµРґРµР»РµРЅРѕ");
 
 
         for (Movie movie : collectionManager.getElements()) {

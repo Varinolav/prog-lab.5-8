@@ -4,14 +4,22 @@ import ru.varino.managers.CommandManager;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ Help
+ */
 public class Help extends Command {
     private final CommandManager commandManager;
 
     public Help(CommandManager commandManager) {
-        super("help", "вывести справку по доступным командам");
+        super("help", "РІС‹РІРµСЃС‚Рё СЃРїСЂР°РІРєСѓ РїРѕ РґРѕСЃС‚СѓРїРЅС‹Рј РєРѕРјР°РЅРґР°Рј");
         this.commandManager = commandManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
@@ -20,7 +28,7 @@ public class Help extends Command {
                 return ResponseEntity.ok().body(commandManager.getCommands().get(args).getDescription());
 
         } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("Команды не существует");
+            return ResponseEntity.badRequest().body("РљРѕРјР°РЅРґР° РЅРµ РЅР°Р№РґРµРЅР°");
         }
 
         StringBuilder builder = new StringBuilder();

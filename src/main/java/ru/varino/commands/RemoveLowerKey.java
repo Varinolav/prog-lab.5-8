@@ -4,18 +4,26 @@ import ru.varino.managers.CollectionManager;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ RemoveLowerKey
+ */
 public class RemoveLowerKey extends Command {
     private final CollectionManager collectionManager;
 
     public RemoveLowerKey(CollectionManager collectionManager) {
-        super("remove_lower_key <id>", "удалить из коллекции все элементы, ключ которых меньше, чем заданный");
+        super("remove_lower_key <id>", "СѓРґР°Р»РёС‚СЊ РёР· РєРѕР»Р»РµРєС†РёРё РІСЃРµ СЌР»РµРјРµРЅС‚С‹, РєР»СЋС‡ РєРѕС‚РѕСЂС‹С… РјРµРЅСЊС€Рµ, С‡РµРј Р·Р°РґР°РЅРЅС‹Р№");
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
-        if (args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");
+        if (args.isEmpty()) return ResponseEntity.badRequest().body("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹");
         try {
             Integer id = Integer.parseInt(args);
             for (Integer k : collectionManager.getElementsIds()) {
@@ -23,10 +31,10 @@ public class RemoveLowerKey extends Command {
                     collectionManager.removeElementFromCollection(k);
                 }
             }
-            return ResponseEntity.ok().body("Элементы удалены из коллекции");
+            return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚С‹ СѓРґР°Р»РµРЅС‹ РёР· РєРѕР»Р»РµРєС†РёРё");
 
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С‚РёРїР° Int");
 
         }
     }

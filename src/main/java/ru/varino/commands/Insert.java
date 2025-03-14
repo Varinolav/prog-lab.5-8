@@ -1,41 +1,48 @@
 package ru.varino.commands;
 
 import ru.varino.managers.CollectionManager;
+import ru.varino.managers.ScannerManager;
 import ru.varino.models.Movie;
 import ru.varino.models.utility.InteractiveMovieCreator;
 import ru.varino.utility.io.Console;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
-import java.util.Scanner;
-
+/**
+ * РљР»Р°СЃСЃ РєРѕРјР°РЅРґС‹ Insert
+ */
 public class Insert extends Command {
-    private CollectionManager collectionManager;
-    private Scanner scanner;
-    private Console console;
+    private final CollectionManager collectionManager;
+    private final ScannerManager scannerManager;
+    private final Console console;
 
-    public Insert(CollectionManager collectionManager, Scanner scanner, Console console) {
-        super("insert <id>", "добавить новый элемент с заданным ключом");
+    public Insert(CollectionManager collectionManager, ScannerManager scannerManager, Console console) {
+        super("insert <id>", "РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚ СЃ Р·Р°РґР°РЅРЅС‹Рј РєР»СЋС‡РѕРј");
         this.collectionManager = collectionManager;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
         this.console = console;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕРјР°РЅРґС‹
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
         try {
             Integer id = Integer.parseInt(args);
             if (collectionManager.getElementById(id) != null) return ResponseEntity.badRequest()
-                    .body("Элемент с таким id уже существует в коллекции");
-            Movie movie = InteractiveMovieCreator.create(console, scanner);
+                    .body("Р­Р»РµРјРµРЅС‚Р° СЃ С‚Р°РєРёРј id СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РєРѕР»Р»РµРєС†РёРё");
+            Movie movie = InteractiveMovieCreator.create(console, scannerManager.getCurrentScanner());
             collectionManager.addElementToCollection(id, movie);
-            return ResponseEntity.ok().body("Элемент добавлен в коллекцию");
+            return ResponseEntity.ok().body("Р­Р»РµРјРµРЅС‚ РґРѕР±Р°РІР»РµРЅ РІ РєРѕР»Р»РµРєС†РёСЋ");
 
         } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Ключ должен быть Int");
+            return ResponseEntity.badRequest().body("РљР»СЋС‡ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С‚РёРїР° Int");
         } catch (InterruptedException e) {
-            return ResponseEntity.serverError().body("Ввод прекращен");
+            return ResponseEntity.serverError().body("Р’РІРѕРґ РїСЂРµРєСЂР°С‰РµРЅ");
 
         }
     }
