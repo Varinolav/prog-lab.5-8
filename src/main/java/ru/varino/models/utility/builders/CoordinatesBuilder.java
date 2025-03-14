@@ -2,6 +2,9 @@ package ru.varino.models.utility.builders;
 
 import ru.varino.models.Coordinates;
 
+/**
+ * Билдер координат
+ */
 public class CoordinatesBuilder implements Builder<Coordinates> {
     private double x;
     private double y;
@@ -30,11 +33,17 @@ public class CoordinatesBuilder implements Builder<Coordinates> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Coordinates build() {
         return new Coordinates(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
         this.x = 0;

@@ -1,5 +1,8 @@
 package ru.varino.exceptions;
 
+/**
+ * Исключение нехватки прав
+ */
 public class PermissionDeniedException extends Exception {
     public PermissionDeniedException(String message) {
         super(message);

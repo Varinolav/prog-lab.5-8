@@ -8,6 +8,9 @@ import ru.varino.models.utility.IdGenerator;
 
 import java.time.LocalDate;
 
+/**
+ * Билдер фильмов
+ */
 public class MovieBuilder implements Builder<Movie> {
     private Integer id;
     private String name;
@@ -123,6 +126,9 @@ public class MovieBuilder implements Builder<Movie> {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
         name = null;
@@ -135,6 +141,9 @@ public class MovieBuilder implements Builder<Movie> {
         director = null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Movie build() {
         return new Movie(this);

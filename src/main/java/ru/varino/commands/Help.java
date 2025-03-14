@@ -4,6 +4,9 @@ import ru.varino.managers.CommandManager;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * Класс команды Help
+ */
 public class Help extends Command {
     private final CommandManager commandManager;
 
@@ -12,6 +15,11 @@ public class Help extends Command {
         this.commandManager = commandManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();

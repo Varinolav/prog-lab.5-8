@@ -1,5 +1,9 @@
 package ru.varino.models;
 
+
+/**
+ * Енам жанров
+ */
 public enum MovieGenre {
     WESTERN,
     COMEDY,
@@ -7,7 +11,11 @@ public enum MovieGenre {
     THRILLER,
     HORROR;
 
-
+    /**
+     * Получить все имена енамов
+     *
+     * @return строка с перечислением
+     */
     public static String getNames() {
         StringBuilder genreBuilder = new StringBuilder();
         for (MovieGenre genre : values()) {

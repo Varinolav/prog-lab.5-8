@@ -4,13 +4,15 @@ import ru.varino.models.Country;
 import ru.varino.models.Person;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+/**
+ * Билдер человека
+ */
 public class PersonBuilder implements Builder<Person> {
-    private String name; //���� �� ����� ���� null, ������ �� ����� ���� ������
-    private java.time.LocalDateTime birthday; //���� ����� ���� null
-    private Long weight; //���� ����� ���� null, �������� ���� ������ ���� ������ 0
-    private Country nationality; //���� �� ����� ���� null
+    private String name;
+    private java.time.LocalDateTime birthday;
+    private Long weight;
+    private Country nationality;
 
 
     public String getName() {
@@ -54,12 +56,17 @@ public class PersonBuilder implements Builder<Person> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Person build() {
         return new Person(this);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
         name = null;

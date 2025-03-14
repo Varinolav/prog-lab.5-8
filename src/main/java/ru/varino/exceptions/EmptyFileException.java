@@ -1,5 +1,8 @@
 package ru.varino.exceptions;
 
+/**
+ * Исключение пустого файла
+ */
 public class EmptyFileException extends Exception {
     public EmptyFileException(String fileName) {
         super(fileName);

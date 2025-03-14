@@ -8,8 +8,9 @@ import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 import ru.varino.utility.io.Console;
 
-import java.util.Scanner;
-
+/**
+ * Класс команды ReplaceIf
+ */
 public class ReplaceIf extends Command {
     private final CollectionManager collectionManager;
     private final Console console;
@@ -25,6 +26,11 @@ public class ReplaceIf extends Command {
         this.type = type;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();

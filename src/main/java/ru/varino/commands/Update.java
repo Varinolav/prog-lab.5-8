@@ -8,8 +8,9 @@ import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 import ru.varino.utility.io.Console;
 
-import java.util.Scanner;
-
+/**
+ * Класс команды Update
+ */
 public class Update extends Command {
     private final CollectionManager collectionManager;
     private final Console console;
@@ -22,6 +23,11 @@ public class Update extends Command {
         this.console = console;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();

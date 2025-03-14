@@ -4,6 +4,10 @@ import ru.varino.models.Movie;
 
 import java.util.*;
 
+
+/**
+ * Класс для работы с коллекцией
+ */
 public class CollectionManager {
     private static CollectionManager instance;
     private Hashtable<Integer, Movie> collection;
@@ -30,12 +34,23 @@ public class CollectionManager {
         return creationDate;
     }
 
+    /**
+     * Получить данны о коллекции
+     *
+     * @return данные о коллекции
+     */
     public String getCollectionInfo() {
         return "Тип данных: " + collection.getClass().getSimpleName() + "\n" +
                 "Дата инициализации: " + creationDate + "\n" +
                 "Размер коллекции: " + collection.size();
     }
 
+    /**
+     * Форматирование вывода
+     *
+     * @param movies коллекция
+     * @return форматированный вывод
+     */
     public static String formatMovies(Hashtable<Integer, Movie> movies) {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -62,6 +77,7 @@ public class CollectionManager {
         collection.put(id, movie);
 
     }
+
     public Collection<Movie> getElements() {
         return collection.values();
     }

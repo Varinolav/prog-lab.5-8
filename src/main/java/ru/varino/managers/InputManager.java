@@ -15,6 +15,10 @@ import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+
+/**
+ * Класс для управления вводом и запуском команд из скрипта
+ */
 public class InputManager {
     private static InputManager instance;
     private final Console console;
@@ -46,6 +50,9 @@ public class InputManager {
         return scanner;
     }
 
+    /**
+     * Запуск интерактивного режима работы
+     */
     public void interactiveRun() {
         try {
             scannerManager.setCurrentScanner(scanner);
@@ -68,6 +75,11 @@ public class InputManager {
 
     }
 
+    /**
+     * Метод запуска скрипта
+     *
+     * @param fileName имя файла
+     */
     public void runScript(String fileName) {
 
         try {
@@ -114,14 +126,20 @@ public class InputManager {
         } catch (EmptyFileException e) {
             console.printerr("Файл пуст");
         } finally {
-        if (recursionDequeHandler.isEmpty()) {
-            scannerManager.setCurrentScanner(scanner);
+            if (recursionDequeHandler.isEmpty()) {
+                scannerManager.setCurrentScanner(scanner);
+            }
         }
-    }
 
 
     }
 
+    /**
+     * Метод исполнения команды
+     *
+     * @param req запрос
+     * @return ответ после выполнения команды
+     */
     private ResponseEntity runCommand(RequestEntity req) {
         String commandReq = req.getCommand();
         if (commandReq.isEmpty()) return ResponseEntity.badRequest().body("Введено 0 аргументов");

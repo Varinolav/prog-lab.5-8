@@ -1,5 +1,9 @@
 package ru.varino.utility.communication;
 
+
+/**
+ * Енам, хранящий статусы ответов
+ */
 public enum Status {
     OK(200, "OK"),
     BADREQUEST(400, "Bad Request"),
@@ -8,6 +12,12 @@ public enum Status {
     final int exitCode;
     final String metaName;
 
+    /**
+     * Конструктор енама
+     *
+     * @param exitCode код завершения
+     * @param metaName дополнительная мета информация
+     */
     Status(int exitCode, String metaName) {
         this.exitCode = exitCode;
         this.metaName = metaName;

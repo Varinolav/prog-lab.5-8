@@ -6,6 +6,9 @@ import ru.varino.models.MovieGenre;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * Класс команды CountLessGenre
+ */
 public class CountLessGenre extends Command {
     private final CollectionManager collectionManager;
 
@@ -14,6 +17,11 @@ public class CountLessGenre extends Command {
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();

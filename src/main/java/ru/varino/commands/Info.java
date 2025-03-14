@@ -4,8 +4,11 @@ import ru.varino.managers.CollectionManager;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
+/**
+ * Класс команды Info
+ */
 public class Info extends Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     public Info(CollectionManager collectionManager) {
         super("info",
@@ -14,6 +17,11 @@ public class Info extends Command {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
         if (!args.isEmpty()) return ResponseEntity.badRequest().body("Неверные аргументы");

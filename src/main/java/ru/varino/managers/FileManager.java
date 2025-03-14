@@ -5,6 +5,9 @@ import ru.varino.utility.io.Console;
 
 import java.io.*;
 
+/**
+ * Класс для работы с файлом
+ */
 public class FileManager {
     private static FileManager instance;
     private final Console console;
@@ -17,7 +20,13 @@ public class FileManager {
         return instance == null ? instance = new FileManager(console) : instance;
     }
 
-
+    /**
+     * Записать коллекцию в файл
+     *
+     * @param fileName имя файла
+     * @param text     json
+     * @throws PermissionDeniedException выбрасывается при отсутствии прав
+     */
     public void write(String fileName, String text) throws PermissionDeniedException {
         try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileName))) {
             var filePath = new File(fileName);
@@ -30,6 +39,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * Прочитать коллекцию из файла
+     *
+     * @param fileName имя файла
+     * @return String - прочитанная коллекция из файла
+     */
     public String read(String fileName) {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             var filePath = new File(fileName);

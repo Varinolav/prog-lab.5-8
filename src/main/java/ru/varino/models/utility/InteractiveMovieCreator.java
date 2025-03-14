@@ -17,8 +17,19 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * Класс интерактивного ввода фильма
+ */
 public class InteractiveMovieCreator {
 
+    /**
+     * Запрашивает у пользователя поля и создает элемент коллекции
+     *
+     * @param console консоль
+     * @param scanner сканнер
+     * @return элемент коллекции
+     * @throws InterruptedException если ввод прерван, выбрасывается исключение
+     */
     public static Movie create(Console console, Scanner scanner) throws InterruptedException {
         Function<String, Country> CountryValueOf = x -> {
             try {
@@ -87,7 +98,17 @@ public class InteractiveMovieCreator {
         return movieBuilder.build();
     }
 
-
+    /**
+     * Запрашивает поле у пользователя, обрабатывает его.
+     *
+     * @param prompt  вывод в консоль
+     * @param console консоль
+     * @param setter  метод билдера
+     * @param parser  парсер переданного значения
+     * @param scanner сканнер
+     * @param <T>     Класс коллекции
+     * @throws InterruptedException если ввод прерван, выбрасывается исключение
+     */
     private static <T> void input(String prompt,
                                   Console console,
                                   Consumer<T> setter,
@@ -106,9 +127,7 @@ public class InteractiveMovieCreator {
                 } else {
                     setter.accept(parser.apply(input));
                 }
-
                 return;
-
             } catch (IllegalArgumentException e) {
                 console.printerr(e.getMessage());
             } catch (DateTimeParseException e) {

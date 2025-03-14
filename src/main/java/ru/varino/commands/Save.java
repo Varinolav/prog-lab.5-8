@@ -10,6 +10,9 @@ import ru.varino.utility.communication.ResponseEntity;
 
 import java.util.Hashtable;
 
+/**
+ * Класс команды Save
+ */
 public class Save extends Command {
     private final String fileName;
     private final ParseManager parseManager;
@@ -24,6 +27,11 @@ public class Save extends Command {
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();

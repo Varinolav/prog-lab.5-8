@@ -1,23 +1,25 @@
 package ru.varino.commands;
 
-import ru.varino.managers.CollectionManager;
 import ru.varino.managers.InputManager;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
-import ru.varino.utility.io.Console;
 
+/**
+ * Класс команды ExecuteScript
+ */
 public class ExecuteScript extends Command {
-    private final CollectionManager collectionManager;
     private final InputManager inputManager;
-    private final Console console;
 
-    public ExecuteScript(CollectionManager collectionManager, InputManager inputManager, Console console) {
+    public ExecuteScript(InputManager inputManager) {
         super("execute_script <file_name>", "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.");
-        this.collectionManager = collectionManager;
         this.inputManager = inputManager;
-        this.console = console;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();

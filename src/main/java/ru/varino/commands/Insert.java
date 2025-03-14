@@ -8,12 +8,13 @@ import ru.varino.utility.io.Console;
 import ru.varino.utility.communication.RequestEntity;
 import ru.varino.utility.communication.ResponseEntity;
 
-import java.util.Scanner;
-
+/**
+ * Класс команды Insert
+ */
 public class Insert extends Command {
-    private CollectionManager collectionManager;
-    private ScannerManager scannerManager;
-    private Console console;
+    private final CollectionManager collectionManager;
+    private final ScannerManager scannerManager;
+    private final Console console;
 
     public Insert(CollectionManager collectionManager, ScannerManager scannerManager, Console console) {
         super("insert <id>", "добавить новый элемент с заданным ключом");
@@ -22,6 +23,11 @@ public class Insert extends Command {
         this.console = console;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param req запрос для выполнения команды
+     * @return {@link ResponseEntity}
+     */
     @Override
     public ResponseEntity execute(RequestEntity req) {
         String args = req.getParams();
