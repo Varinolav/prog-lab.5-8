@@ -1,7 +1,7 @@
 {
   "123": {
     "id": 3,
-    "name": "asd",
+    "name": null,
     "coordinates": {
       "x": 3.0,
       "y": 3.0
@@ -19,8 +19,8 @@
     }
   },
   "12": {
-    "id": 1,
-    "name": "sad",
+    "id": 2,
+    "name": null,
     "coordinates": {
       "x": 1.0,
       "y": 1.0
@@ -35,6 +35,25 @@
       "birthday": null,
       "weight": 3,
       "nationality": "SPAIN"
+    }
+  },
+  "212": {
+    "id": 1,
+    "name": "sad",
+    "coordinates": {
+      "x": 124.0,
+      "y": 1.0
+    },
+    "creationDate": "2025-03-12",
+    "oscarsCount": null,
+    "totalBoxOffice": null,
+    "tagline": null,
+    "genre": "HORROR",
+    "director": {
+      "name": null,
+      "birthday": null,
+      "weight": 3,
+      "nationality": "a"
     }
   }
 }

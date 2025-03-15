@@ -20,7 +20,6 @@ import java.util.Scanner;
  * Класс для управления вводом и запуском команд из скрипта
  */
 public class InputManager {
-    private static InputManager instance;
     private final Console console;
     private final CommandManager commandManager;
     private final RecursionDequeHandler recursionDequeHandler;
@@ -30,17 +29,13 @@ public class InputManager {
     private static Scanner scanner;
 
 
-    private InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
+    public InputManager(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
         this.console = console;
         this.commandManager = commandManager;
         this.recursionDequeHandler = recursionDequeHandler;
         this.scannerManager = scannerManager;
     }
 
-
-    public static InputManager getInstance(Console console, CommandManager commandManager, RecursionDequeHandler recursionDequeHandler, ScannerManager scannerManager) {
-        return instance == null ? instance = new InputManager(console, commandManager, recursionDequeHandler, scannerManager) : instance;
-    }
 
     public static void setScanner(Scanner scanner) {
         InputManager.scanner = scanner;

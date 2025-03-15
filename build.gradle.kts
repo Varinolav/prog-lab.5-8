@@ -35,6 +35,7 @@ buildscript {
         classpath("com.gradleup.shadow:shadow-gradle-plugin:7.0.0")
     }
 }
+
 // `apply plugin` stuffs are used with `buildscript`.
 apply(plugin = "java")
 apply(plugin = "com.gradleup.shadow")

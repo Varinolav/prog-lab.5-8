@@ -9,6 +9,7 @@ import ru.varino.models.utility.builders.MovieBuilder;
 import ru.varino.models.utility.builders.PersonBuilder;
 import ru.varino.utility.io.Console;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,9 +48,9 @@ public class InteractiveMovieCreator {
             }
         };
 
-        Function<String, Double> parseDouble = x -> {
+        Function<String, BigDecimal> parseBigDecimal = x -> {
             try {
-                return Double.parseDouble(x);
+                return new BigDecimal(x);
             } catch (NumberFormatException e) {
                 throw new NumberFormatException("Поле должно быть типа double");
             }
@@ -78,8 +79,8 @@ public class InteractiveMovieCreator {
         input("Введите имя: ", console, movieBuilder::buildName, String::valueOf, scanner);
 
         CoordinatesBuilder coordinatesBuilder = new CoordinatesBuilder();
-        input("Введите координату X: ", console, coordinatesBuilder::buildX, parseDouble, scanner);
-        input("Введите координату Y: ", console, coordinatesBuilder::buildY, parseDouble, scanner);
+        input("Введите координату X: ", console, coordinatesBuilder::buildX, parseBigDecimal, scanner);
+        input("Введите координату Y: ", console, coordinatesBuilder::buildY, parseBigDecimal, scanner);
         movieBuilder.buildCoordinates(coordinatesBuilder.build());
 
         movieBuilder.buildCreationDate(LocalDate.now());

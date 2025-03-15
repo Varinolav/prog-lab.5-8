@@ -2,32 +2,34 @@ package ru.varino.models.utility.builders;
 
 import ru.varino.models.Coordinates;
 
+import java.math.BigDecimal;
+
 /**
  * Билдер координат
  */
 public class CoordinatesBuilder implements Builder<Coordinates> {
-    private double x;
-    private double y;
+    private BigDecimal x;
+    private BigDecimal y;
 
 
-    public double getX() {
+    public BigDecimal getX() {
         return x;
     }
 
-    public CoordinatesBuilder buildX(Double x) {
+    public CoordinatesBuilder buildX(BigDecimal x) {
         if (x == null) throw new IllegalArgumentException("X не может быть null");
         this.x = x;
         return this;
     }
 
-    public double getY() {
-
+    public BigDecimal getY() {
         return y;
     }
 
-    public CoordinatesBuilder buildY(Double y) {
+    public CoordinatesBuilder buildY(BigDecimal y) {
         if (y == null) throw new IllegalArgumentException("Y не может быть null");
-        if (y > 522) throw new IllegalArgumentException("Максимальное значение поля Y: 522");
+        if (y.compareTo(new BigDecimal(522)) > 0)
+            throw new IllegalArgumentException("Максимальное значение поля Y: 522");
 
         this.y = y;
         return this;
@@ -46,8 +48,8 @@ public class CoordinatesBuilder implements Builder<Coordinates> {
      */
     @Override
     public void reset() {
-        this.x = 0;
-        this.y = 0;
+        this.x = new BigDecimal(0);
+        this.y = new BigDecimal(0);
 
     }
 }

@@ -10,15 +10,10 @@ import java.util.Map;
  * Класс для работы с командами
  */
 public class CommandManager {
-    private static CommandManager instance;
     private final Map<String, Command> commands = new HashMap<>();
 
 
-    private CommandManager() {
-    }
-
-    public static CommandManager getInstance() {
-        return instance == null ? instance = new CommandManager() : instance;
+    public CommandManager() {
     }
 
     public Map<String, Command> getCommands() {
