@@ -33,9 +33,9 @@ public class Engine {
             System.exit(0);
         }
 
-        FileManager fileManager = FileManager.getInstance(console);
-        ParseManager parseManager = ParseManager.getInstance(console);
-        CollectionManager collectionManager = CollectionManager.getInstance();
+        FileManager fileManager = new FileManager(console);
+        ParseManager parseManager = new ParseManager(console);
+        CollectionManager collectionManager = new CollectionManager();
 
         String json = fileManager.read(fileName);
         Hashtable<Integer, Movie> initCollection = parseManager.getHashTableFromJson(json);
@@ -45,10 +45,10 @@ public class Engine {
         InputManager.setScanner(scanner);
 
 
-        CommandManager commandManager = CommandManager.getInstance();
+        CommandManager commandManager = new CommandManager();
         RecursionDequeHandler recursionDequeHandler = RecursionDequeHandler.getInstance();
-        ScannerManager scannerManager = ScannerManager.getInstance();
-        InputManager inputManager = InputManager.getInstance(console, commandManager, recursionDequeHandler, scannerManager);
+        ScannerManager scannerManager = new ScannerManager();
+        InputManager inputManager = new InputManager(console, commandManager, recursionDequeHandler, scannerManager);
 
         commandManager
                 .add("show", new Show(collectionManager))

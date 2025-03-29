@@ -13,7 +13,6 @@ public class IdGenerator {
     private Integer ID = 1;
     private HashSet<Integer> IdList;
 
-
     public static IdGenerator getInstance() {
         return instance == null ? instance = new IdGenerator() : instance;
     }

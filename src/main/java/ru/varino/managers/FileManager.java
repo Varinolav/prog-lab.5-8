@@ -9,15 +9,10 @@ import java.io.*;
  * Класс для работы с файлом
  */
 public class FileManager {
-    private static FileManager instance;
     private final Console console;
 
-    private FileManager(Console console) {
+    public FileManager(Console console) {
         this.console = console;
-    }
-
-    public static FileManager getInstance(Console console) {
-        return instance == null ? instance = new FileManager(console) : instance;
     }
 
     /**

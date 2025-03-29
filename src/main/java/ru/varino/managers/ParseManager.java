@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.time.LocalDate;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.google.gson.reflect.TypeToken;
 import ru.varino.managers.utility.adapters.LocalDateAdapter;
@@ -20,7 +22,6 @@ import ru.varino.managers.utility.adapters.LocalDateTimeAdapter;
  * Класс для парсинга коллекции
  */
 public class ParseManager {
-    private static ParseManager instance;
 
     private final Console console;
     private final Gson gson = new GsonBuilder()
@@ -30,14 +31,10 @@ public class ParseManager {
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
 
-    private ParseManager(Console console) {
+    public ParseManager(Console console) {
         this.console = console;
     }
 
-
-    public static ParseManager getInstance(Console console) {
-        return instance == null ? instance = new ParseManager(console) : instance;
-    }
 
     /**
      * Конвертирует json в хэш-таблицу
@@ -48,7 +45,7 @@ public class ParseManager {
     public Hashtable<Integer, Movie> getHashTableFromJson(String json) {
         IdGenerator idGen = IdGenerator.getInstance();
         try {
-            Hashtable<Integer, Movie> movies = new Hashtable<Integer, Movie>();
+            Hashtable<Integer, Movie> movies = new Hashtable<>();
             if (!json.isEmpty()) {
                 Type collectionType = new TypeToken<Hashtable<Integer, Movie>>() {
                 }.getType();
@@ -56,16 +53,22 @@ public class ParseManager {
             }
             ArrayList<Integer> IdList = new ArrayList<>();
 
-            for (Movie m : movies.values()) {
+            Iterator<Map.Entry<Integer, Movie>> iterator = movies.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Integer, Movie> entry = iterator.next();
+                Movie m = entry.getValue();
                 Integer movieId = m.getId();
-                if (IdList.contains(movieId) || !m.validate()) throw new IllegalArgumentException();
-                IdList.add(movieId);
+                if (IdList.contains(movieId) || !m.validate()) {
+                    iterator.remove();
+                } else {
+                    IdList.add(movieId);
+                }
             }
             idGen.setIdsFromCollection(movies);
             return movies;
         } catch (Exception e) {
-            console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста");
-            return new Hashtable<Integer, Movie>();
+            console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста. %s".formatted(e.toString()));
+            return new Hashtable<>();
         }
     }
 

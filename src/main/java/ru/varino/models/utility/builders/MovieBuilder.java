@@ -38,7 +38,6 @@ public class MovieBuilder implements Builder<Movie> {
     public MovieBuilder buildCoordinates(Coordinates coords) {
         if (coords == null) throw new IllegalArgumentException("Координаты не могут быть null");
 
-
         this.coordinates = coords;
         return this;
     }

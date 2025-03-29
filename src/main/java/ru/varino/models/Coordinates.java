@@ -4,12 +4,14 @@ package ru.varino.models;
 import ru.varino.models.utility.builders.CoordinatesBuilder;
 import ru.varino.utility.Validatable;
 
+import java.math.BigDecimal;
+
 /**
  * Модель координат
  */
 public final class Coordinates implements Validatable {
-    private final double x;
-    private final double y; //Максимальное значение поля: 522
+    private final BigDecimal x;
+    private final BigDecimal y; //Максимальное значение поля: 522
 
     /**
      * Конструктор координат
@@ -21,12 +23,12 @@ public final class Coordinates implements Validatable {
         y = builder.getY();
     }
 
-    public double getX() {
+    public BigDecimal getX() {
         return x;
     }
 
 
-    public double getY() {
+    public BigDecimal getY() {
         return y;
     }
 
@@ -41,6 +43,6 @@ public final class Coordinates implements Validatable {
      */
     @Override
     public boolean validate() {
-        return y <= 522;
+        return y.compareTo(new BigDecimal(522)) <= 0;
     }
 }

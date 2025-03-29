@@ -9,19 +9,13 @@ import java.util.*;
  * Класс для работы с коллекцией
  */
 public class CollectionManager {
-    private static CollectionManager instance;
     private Hashtable<Integer, Movie> collection;
     private final Date creationDate;
 
-    private CollectionManager() {
+    public CollectionManager() {
         collection = new Hashtable<Integer, Movie>();
         creationDate = new Date();
     }
-
-    public static CollectionManager getInstance() {
-        return instance == null ? instance = new CollectionManager() : instance;
-    }
-
     public Hashtable<Integer, Movie> getCollection() {
         return collection;
     }
