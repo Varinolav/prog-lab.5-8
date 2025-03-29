@@ -6,6 +6,7 @@ package ru.varino;
  */
 public class Main {
     public static void main(String[] args) {
+
         Engine.run(args);
     }
 }

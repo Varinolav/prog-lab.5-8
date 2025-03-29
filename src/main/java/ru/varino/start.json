@@ -1,26 +1,26 @@
 {
   "123": {
-    "id": 3,
-    "name": null,
+    "id": 2,
+    "name": "223",
     "coordinates": {
-      "x": 3.0,
-      "y": 3.0
+      "x": 23,
+      "y": 23
     },
-    "creationDate": "2025-03-12",
-    "oscarsCount": null,
-    "totalBoxOffice": 3,
-    "tagline": "3",
-    "genre": "HORROR",
+    "creationDate": "2025-03-15",
+    "oscarsCount": 23,
+    "totalBoxOffice": 23,
+    "tagline": "23",
+    "genre": "COMEDY",
     "director": {
-      "name": "3",
-      "birthday": null,
-      "weight": null,
-      "nationality": "SPAIN"
+      "name": "COMEDY",
+      "birthday": "2024-02-02 22:22",
+      "weight": 123,
+      "nationality": "GERMANY"
     }
   },
   "12": {
-    "id": 2,
-    "name": null,
+    "id": 1,
+    "name": "sad",
     "coordinates": {
       "x": 1.0,
       "y": 1.0
@@ -35,25 +35,6 @@
       "birthday": null,
       "weight": 3,
       "nationality": "SPAIN"
-    }
-  },
-  "212": {
-    "id": 1,
-    "name": "sad",
-    "coordinates": {
-      "x": 124.0,
-      "y": 1.0
-    },
-    "creationDate": "2025-03-12",
-    "oscarsCount": null,
-    "totalBoxOffice": null,
-    "tagline": null,
-    "genre": "HORROR",
-    "director": {
-      "name": null,
-      "birthday": null,
-      "weight": 3,
-      "nationality": "a"
     }
   }
 }

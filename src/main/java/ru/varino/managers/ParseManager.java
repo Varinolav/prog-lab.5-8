@@ -67,7 +67,7 @@ public class ParseManager {
             idGen.setIdsFromCollection(movies);
             return movies;
         } catch (Exception e) {
-            console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста");
+            console.println("Json-файл повреждён, данные из него не были взяты. Коллекция, с которой вы работаете пуста. %s".formatted(e.toString()));
             return new Hashtable<>();
         }
     }
